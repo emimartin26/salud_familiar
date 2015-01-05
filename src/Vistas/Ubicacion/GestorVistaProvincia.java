@@ -1,0 +1,254 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package Vistas.Ubicacion;
+
+import Model.Ubicacion.GestorPais;
+import Model.Ubicacion.GestorProvincia;
+import Model.Ubicacion.Pais;
+import Model.Ubicacion.Provincia;
+import Utilidades.GestorCombo;
+import Utilidades.GestorLista;
+import Utilidades.Util;
+import Vistas.GestorVista;
+import Vistas.InterfazFrm;
+import java.util.List;
+import javax.swing.JDesktopPane;
+
+/**
+ *
+ * @author Emiliano
+ */
+public class GestorVistaProvincia extends GestorVista implements InterfazFrm {
+
+    private GestorProvincia gestor;
+
+    public GestorVistaProvincia(JDesktopPane escritorio) {
+        this.setEscritorio(escritorio);
+        this.setFrame(new FrmProvincia(this));
+        this.setGestor(new GestorProvincia());
+    }
+
+    public GestorProvincia getGestor() {
+        return gestor;
+    }
+
+    public final void setGestor(GestorProvincia gestor) {
+        this.gestor = gestor;
+    }
+
+    public String tomarNombreProvBuscar() {
+        return this.getFormularioEspecifico().getTxtNombreProvBuscar().getText();
+    }
+
+    @Override
+    public void abrir() {
+        this.getEscritorio().add(this.getFrame());
+        this.getFrame().setVisible(true);
+    }
+
+    public Provincia getModel() {
+        return this.getGestor().getModel();
+    }
+
+    public FrmProvincia getFormularioEspecifico() {
+        return (FrmProvincia) this.getFrame();
+    }
+
+    public void guardar() {
+        if (comprabarCamposMinimos()) {
+            if (this.isNuevo()) {
+                this.getGestor().crearModelo();
+                this.getModel().setNombre(this.getFormularioEspecifico().getTxtNombre().getText());
+                this.getModel().setPais(this.seleccionComboNuevo());
+                this.getGestor().procesar(this.getModo());
+                this.actualizarProvincia();
+                this.getFormularioEspecifico().configInicial();
+            } else {
+                this.removeProvincia();
+                this.getModel().setNombre(this.getFormularioEspecifico().getTxtNombre().getText());
+                this.getModel().setPais(this.seleccionComboNuevo());
+                this.getGestor().procesar(this.getModo());
+                this.actualizarProvincia();
+                this.getFormularioEspecifico().configInicial();
+                this.clearList();
+            }
+        }
+    }
+
+    public void accionModificar() {
+        if (this.getFormularioEspecifico().getLista().getSelectedValue() == null) {
+            new Util().getMensajeError("No ha seleccionado nada");
+        } else {
+            this.actualizarVista();
+            this.actualizarModelo();
+        }
+
+    }
+
+    public void actualizarVista() {
+        String nombre = this.getFormularioEspecifico().getLista().getSelectedValue().toString();
+        this.getFormularioEspecifico().getTxtNombre().setText(nombre);
+        this.cargarComboPais();
+        this.getFormularioEspecifico().getBtnGuardar().setEnabled(true);
+        this.getFormularioEspecifico().getTxtNombre().setEnabled(true);
+        this.getFormularioEspecifico().getCmbPais().setEnabled(true);
+        this.getFormularioEspecifico().getTxtNombre().requestFocus();
+    }
+
+    public void actualizarModelo() {
+        this.getGestor().setModel(this.tomarSeleccionLista());
+    }
+    /*este metodo borra a la provincia seleccionada de su antiguo pais.
+     * 
+     */
+
+    public void removeProvincia() {
+        GestorPais gestorPais = new GestorPais();
+        gestorPais.setModel(this.getModel().getPais());
+        gestorPais.getModel().remove(this.getModel());
+        gestorPais.actualizarExterno();
+    }
+    /*este metodo agrega o actualiza una provincia  a un nuevo pais o al mismo al cual pertenecia.
+     * 
+     */
+
+    public void actualizarProvincia() {
+        GestorPais gestorNuevoPais = new GestorPais();
+        gestorNuevoPais.setModel(this.seleccionComboNuevo());
+        gestorNuevoPais.getModel().add(this.getModel());
+        this.setModoExterno();
+        gestorNuevoPais.procesar(this.getModo());
+    }
+
+    public void eliminarProvincia() {
+        if (this.getFormularioEspecifico().getLista().getSelectedValue() == null) {
+            new Util().getMensajeError("No ha seleccionado nada");
+        } else {
+            String nombre = this.getFormularioEspecifico().getLista().getSelectedValue().toString();
+            switch (new Util().confirmacion("¿Desea eliminar la provincia " + nombre + "?")) {
+                case 0://aceptar
+                    this.eliminar();
+                    this.getFormularioEspecifico().configInicial();
+                    this.clearList();
+                    break;
+                case 2://cancelar
+                    break;
+            }
+        }
+    }
+
+    public void eliminar() {
+        this.getGestor().setModel(this.tomarSeleccionLista());
+        this.getGestor().eliminar();
+        this.removeProvincia();
+    }
+
+    public void filtrar() {
+        if (!this.getFormularioEspecifico().getChekNombre().isSelected() && this.getFormularioEspecifico().getChekPais().isSelected()) {
+            this.llenarList(this.listaProvinciasPais());
+        }
+
+        if (this.getFormularioEspecifico().getChekNombre().isSelected() && this.getFormularioEspecifico().getChekPais().isSelected()) {
+            this.llenarList(this.listaProvinciasConb());
+        }
+        if (this.campoBusquedaVacia()) {
+            if (this.getFormularioEspecifico().getChekNombre().isSelected() && !this.getFormularioEspecifico().getChekPais().isSelected()) {
+                this.llenarList(this.listaProvinciasNombre());
+            }
+        }
+    }
+
+    public void filtrarNombre() {
+        this.llenarList(this.listaProvinciasNombre());
+    }
+
+    public void sinFiltro() {
+        this.llenarList(this.listaCompletaProvincias());
+    }
+
+    public boolean comprabarCamposMinimos() {
+        if (Util.estaVacioTxt(this.getFormularioEspecifico().getTxtNombre())) {
+            new Util().getMensajeError("Campo nombre esta vacío");
+            return false;
+        }
+        if (Util.estaSeleccionadoCombo(this.getFormularioEspecifico().getCmbPais())) {
+            new Util().getMensajeError("Seleccione un país");
+            return false;
+        }
+        return true;
+
+    }
+
+    public boolean campoBusquedaVacia() {
+        if (Util.estaVacioTxt(this.getFormularioEspecifico().getTxtNombreProvBuscar())) {
+            return false;
+        }
+        return true;
+    }
+
+    private Provincia tomarSeleccionLista() {
+        return (Provincia) this.getFormularioEspecifico().getLista().getSelectedValue();
+    }
+
+    public Pais seleccionComboNuevo() {
+        return (Pais) this.getFormularioEspecifico().getCmbPais().getSelectedItem();
+    }
+
+    public Pais seleccionComboBuscar() {
+        return (Pais) this.getFormularioEspecifico().getCmbPaisBuscar().getSelectedItem();
+    }
+
+    public void cargarComboPais() {
+        GestorCombo gestorCombo = new GestorCombo();
+        gestorCombo.cargarCombo(listPaises(), this.getFormularioEspecifico().getCmbPais());
+    }
+
+    public void cargarComboPaisBuscar() {
+        GestorCombo gestorCombo = new GestorCombo();
+        gestorCombo.cargarCombo(this.listPaises(), this.getFormularioEspecifico().getCmbPaisBuscar());
+    }
+
+    public void llenarList(List lista) {
+        GestorLista gestorLista = new GestorLista();
+        gestorLista.llenarList(lista, this.getFormularioEspecifico().getLista());
+    }
+
+    public void clearList() {
+        GestorLista gestorLista = new GestorLista();
+        gestorLista.clearList(this.getFormularioEspecifico().getLista());
+
+    }
+
+    public List listPaises() {
+        GestorPais gestorPais = new GestorPais();
+        return gestorPais.listarPais();
+    }
+
+    public List listaProvinciasNombre() {
+        return this.getGestor().filtrarNombre(this.tomarNombreProvBuscar().trim().toLowerCase());
+    }
+
+    public List listaProvinciasConb() {
+        return this.getGestor().filtrarConb(this.seleccionComboBuscar(), this.tomarNombreProvBuscar().trim().toLowerCase());
+
+    }
+
+    public List listaProvinciasPais() {
+        return this.getGestor().filtrarPais(this.seleccionComboBuscar());
+    }
+
+    public List listaCompletaProvincias() {
+        return this.getGestor().listarProvincias();
+    }
+
+    public void imprimir() {
+        this.getGestor().imprimir();
+    }
+
+    @Override
+    public void cerrar() {
+        this.getFormularioEspecifico().setVisible(false);
+    }
+}

@@ -1,0 +1,432 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package Vistas.Paciente;
+
+import Model.Paciente.GestorEnfermedad;
+import Model.Paciente.GestorHistoriaClinica;
+import Model.Paciente.GestorPaciente;
+import Model.Paciente.GestorSintoma;
+import Model.Paciente.HistoriaClinica;
+import Model.Paciente.Paciente;
+import Model.Profesional.GestorProfesion;
+import Model.Profesional.GestorProfesionales;
+import Model.Profesional.Profesional;
+import Utilidades.GestorCombo;
+import Utilidades.GestorLista;
+import Utilidades.Util;
+import Vistas.GestorVista;
+import Vistas.InterfazFrm;
+import java.awt.Color;
+import java.awt.event.KeyEvent;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
+import javax.swing.JDesktopPane;
+
+/**
+ *
+ * @author Federico
+ */
+public class GestorVistaHistoriaClinica extends GestorVista implements InterfazFrm {
+
+    private GestorHistoriaClinica gestor;
+    private GestorPaciente gestorPaciente;
+    private List listaEnfermedades;
+    private List listaSintomas;
+    private List listaHistorial;
+
+    public GestorVistaHistoriaClinica(JDesktopPane escritorio, Paciente seleccionado) {
+        this.setEscritorio(escritorio);
+        this.setFrame(new FrmHistoriaClinica(this));
+        this.crearGestorPaciente();
+        this.crearGestor();
+        this.getGestorPaciente().setModel(seleccionado);
+        this.cargarDatosPaciente(this.getGestorPaciente().getModel());
+        this.setearTituloHistoria(this.getGestorPaciente().getModel());
+        this.listaHistorial = new ArrayList();
+        this.listaEnfermedades = new ArrayList();
+        this.listaSintomas = new ArrayList();
+        this.cargarHistorias();
+
+    }
+
+    public List getListaEnfermedades() {
+        return listaEnfermedades;
+    }
+
+    public void setListaEnfermedades(List listaEnfermedades) {
+        this.listaEnfermedades = listaEnfermedades;
+    }
+
+    public List getListaSintomas() {
+        return listaSintomas;
+    }
+
+    public void setListaSintomas(List listaSintomas) {
+        this.listaSintomas = listaSintomas;
+    }
+
+    public List getListaHistorial() {
+        return listaHistorial;
+    }
+
+    public void setListaHistorial(List listaHistorial) {
+        this.listaHistorial = listaHistorial;
+    }
+
+    public GestorHistoriaClinica getGestor() {
+        return gestor;
+    }
+
+    public void setGestorPaciente(GestorPaciente gestorPaciente) {
+        this.gestorPaciente = gestorPaciente;
+    }
+
+    public void setGestor(GestorHistoriaClinica gestor) {
+        this.gestor = gestor;
+    }
+
+    public void setModel(HistoriaClinica model) {
+        this.gestor.setModel(model);
+    }
+
+    public HistoriaClinica getModel() {
+        return gestor.getModel();
+    }
+
+    public void abrir() {
+        this.getEscritorio().add(this.getFrame());
+        this.getFrame().setVisible(true);
+    }
+
+    public FrmHistoriaClinica getFormularioEspecifico() {
+        return (FrmHistoriaClinica) this.getFrame();
+    }
+
+    public void setearTituloHistoria(Paciente seleccionado) {
+
+        this.getFormularioEspecifico().setTitle("Historial Clínico: " + seleccionado.getApellido().toUpperCase() + ", " + seleccionado.getNombre().toUpperCase());
+
+    }
+
+    private void crearGestorPaciente() {
+        this.setGestorPaciente(new GestorPaciente());
+    }
+
+    private GestorPaciente getGestorPaciente() {
+        return this.gestorPaciente;
+    }
+
+    private void crearGestor() {
+        this.setGestor(new GestorHistoriaClinica());
+    }
+
+    public void guardar() {
+        if (comprobarCamposMinimos()) {
+            this.getGestor().crearModelo();
+            this.obtenerDatosHistoria();
+            this.getGestorPaciente().procesar(this.getModo());
+            this.limpiarCamposPosGuardado();
+            this.cargarHistorias();
+        } else {
+            new Util().getMensajeError("Hay campos obligatorios vacíos");
+        }
+    }
+
+    public void eliminar() {
+        if (this.getFormularioEspecifico().getListHistorial().getSelectedValue() == null) {
+            new Util().getMensajeError("No ha seleccionado nada");
+        } else {
+            String nombre = this.getFormularioEspecifico().getListHistorial().getSelectedValue().toString();
+            switch (new Util().confirmacion("¿Desea eliminar el historial: " + nombre + "?")) {
+                case 0://aceptar
+                    this.setModificar();
+                    this.eliminarHistoria();
+                    this.getGestorPaciente().getModel().getHistoria().clear();
+                    this.getGestorPaciente().getModel().getHistoria().addAll(this.getListaHistorial());
+                    this.getGestorPaciente().procesar(getModo());
+                    this.getGestor().eliminar();
+                    this.getFormularioEspecifico().configInicial();
+                    this.clearListHistorial();
+                    this.cargarHistorias();
+                    break;
+                case 2://cancelar
+
+                    break;
+            }
+        }
+    }
+
+    public void eliminarHistoria() {
+        this.getListaHistorial().remove(this.getFormularioEspecifico().getListHistorial().getSelectedValue());
+    }
+
+    private HistoriaClinica getSeleccionLista() {
+        return (HistoriaClinica) this.getFormularioEspecifico().getListHistorial().getSelectedValue();
+    }
+
+    private String calcularEdad() {
+
+        Date fechaHoy = new Date();
+        Date fechaNacimiento = this.getGestorPaciente().getModel().getFechaNac();
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        int edad = fechaHoy.getYear() - fechaNacimiento.getYear();
+
+        if ((fechaNacimiento.getMonth() - fechaHoy.getMonth()) > 0) {
+            edad--;
+        } else if ((fechaNacimiento.getMonth() - fechaHoy.getMonth()) == 0) {
+            if ((fechaNacimiento.getDate() - fechaHoy.getDate()) > 0) {
+                edad--;
+            }
+        }
+
+          return  edad+" Año/s.";
+    }
+
+    public void limpiarCamposPosGuardado() {
+        this.getFormularioEspecifico().configInicial();
+        this.clearListEnfermedades();
+        this.clearListSintomas();
+        this.clearListHistorial();
+        this.getListaEnfermedades().clear();
+        this.getListaSintomas().clear();
+        this.getListaHistorial().clear();
+        this.pintarDeBlanco();
+
+    }
+
+    public void pintarDeBlanco() {
+        this.getFormularioEspecifico().getListEnfermedades().setBackground(Color.white);
+        this.getFormularioEspecifico().getListSintomas().setBackground(Color.WHITE);
+        this.getFormularioEspecifico().getCmbProfesionales().setBackground(Color.WHITE);
+    }
+
+    public void obtenerDatosHistoria() {
+        this.getModel().setProfesional(this.seleccionComboProfesional());
+        this.getModel().getSintoma().addAll(this.getListaSintomas());
+        this.getModel().setFechaConsulta(getFormularioEspecifico().getTxtFechaConsulta().getText());
+        this.getModel().setObservacion(getFormularioEspecifico().getTxtAreaObservacion().getText());
+        this.getModel().getEnfermedad().addAll(this.getListaEnfermedades());
+        this.getGestorPaciente().getModel().getHistoria().add(this.getModel());
+    }
+
+    public Profesional seleccionComboProfesional() {
+        return (Profesional) this.getFormularioEspecifico().getCmbProfesionales().getSelectedItem();
+    }
+
+    public boolean comprobarCamposMinimos() {
+        int numero = 0;
+        if (this.getFormularioEspecifico().getCmbProfesionales().getSelectedItem() == null) {
+            numero = 1;
+            this.getFormularioEspecifico().getCmbProfesionales().setBackground(Color.pink);
+        } else {
+            this.getFormularioEspecifico().getCmbProfesionales().setBackground(Color.GREEN);
+        }
+        if (this.getListaEnfermedades().isEmpty()) {
+            numero = 1;
+            this.getFormularioEspecifico().getListEnfermedades().setBackground(Color.pink);
+        } else {
+            this.getFormularioEspecifico().getListEnfermedades().setBackground(Color.GREEN);
+        }
+        if (this.getListaSintomas().isEmpty()) {
+            numero = 1;
+            this.getFormularioEspecifico().getListSintomas().setBackground(Color.pink);
+        } else {
+            this.getFormularioEspecifico().getListSintomas().setBackground(Color.GREEN);
+        }
+        if (numero == 1) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public void cargarDatosPaciente(Paciente seleccionado) {
+        this.getFormularioEspecifico().getTxtApellido().setText(seleccionado.getApellido());
+        this.getFormularioEspecifico().getTxtNombre().setText(seleccionado.getNombre());
+        this.getFormularioEspecifico().getTxtFechaNacPers().setText(seleccionado.fechaFormateada());
+        this.getFormularioEspecifico().getTxtTipoDocumento().setText(seleccionado.getDocumento().getTipoDocumento().getNombre());
+        this.getFormularioEspecifico().getTxtNroDocumento().setText(seleccionado.getDocumento().getNum());
+        this.getFormularioEspecifico().getTxtEdad().setText(this.calcularEdad());
+    }
+    public void escribeObservacion(KeyEvent evt){
+        int max=150;
+        String escrito = this.getFormularioEspecifico().getTxtAreaObservacion().getText();
+        this.getFormularioEspecifico().getLblCantCaracteres().setText("Caracteres restantes: "+Integer.toString(max-escrito.length()));
+        if (max-escrito.length()>15) {
+            this.getFormularioEspecifico().getLblCantCaracteres().setForeground(Color.green);
+        } else {
+            this.getFormularioEspecifico().getLblCantCaracteres().setForeground(Color.red);
+        }
+        if (max-escrito.length()<1) {
+            evt.consume();
+        }
+    }
+    public void cargarHistorias() {
+        this.getListaHistorial().clear();
+        this.getFormularioEspecifico().getListHistorial().removeAll();
+        this.getListaHistorial().addAll(this.getGestorPaciente().getModel().getHistoria());
+        this.llenarListHistorial(this.getListaHistorial());
+    }
+
+    public void cargarComboProfesional() {
+        GestorCombo gestorCombo = new GestorCombo();
+        gestorCombo.cargarCombo(this.buscarProfesionales(), this.getFormularioEspecifico().getCmbProfesionales());
+    }
+
+    public void cargarComboSintomas() {
+        GestorCombo gestorCombo = new GestorCombo();
+        gestorCombo.cargarCombo(this.buscarSintomas(), this.getFormularioEspecifico().getCmbSintomas());
+    }
+
+    public void cargarCombosEnfermedad() {
+        GestorCombo gestorCombo = new GestorCombo();
+        gestorCombo.cargarCombo(this.buscarEnfermedades(), this.getFormularioEspecifico().getCmbEnfermedades());
+    }
+
+    private List buscarProfesionales() {
+        GestorProfesionales gesprof = new GestorProfesionales();
+        return gesprof.listarProfesionales();
+    }
+
+    private List buscarSintomas() {
+        GestorSintoma gestSint = new GestorSintoma();
+        return gestSint.listarSintoma();
+    }
+
+    private List buscarEnfermedades() {
+        GestorEnfermedad gestEnfermedad = new GestorEnfermedad();
+        return gestEnfermedad.listarEnfermedades();
+
+    }
+
+    public void eliminarProfesionDeLista() {
+        if (this.getFormularioEspecifico().getListEnfermedades().getSelectedValue() == null) {
+            new Util().getMensajeError("No ha seleccionado nada");
+        } else {
+            this.getListaEnfermedades().remove(this.getFormularioEspecifico().getListEnfermedades().getSelectedValue());
+            this.llenarListEnfermedades(this.getListaEnfermedades());
+        }
+    }
+
+    public void mostrarInfoHistoria() {
+        if (this.getFormularioEspecifico().getListHistorial().getSelectedValue() == null) {
+            new Util().getMensajeError("No ha seleccionado nada");
+        } else {
+            HistoriaClinica historia = (HistoriaClinica) this.getFormularioEspecifico().getListHistorial().getSelectedValue();
+            this.mostrarHistoria(historia);
+        }
+
+    }
+
+    public void mostrarHistoria(HistoriaClinica historia) {
+        this.clearListEnfermedades();
+        this.clearListSintomas();
+        this.getFormularioEspecifico().cargarCombos();
+        this.getFormularioEspecifico().getTxtFechaConsulta().setText(historia.getFechaConsulta());
+        this.getFormularioEspecifico().getTxtAreaObservacion().setText(historia.getObservacion());
+        this.getFormularioEspecifico().getCmbProfesionales().setSelectedItem(historia.getProfesional());
+        this.getListaEnfermedades().clear();
+        this.getListaSintomas().clear();
+        this.getListaEnfermedades().addAll(historia.getEnfermedad());
+        this.llenarListEnfermedades(this.getListaEnfermedades());
+        this.getListaSintomas().addAll(historia.getSintoma());
+        this.llenarListSintoma(this.getListaSintomas());
+    }
+
+    public void eliminarSintomaDeLista() {
+        if (this.getFormularioEspecifico().getListSintomas().getSelectedValue() == null) {
+            new Util().getMensajeError("No ha seleccionado nada");
+        } else {
+            this.getListaSintomas().remove(this.getFormularioEspecifico().getListSintomas().getSelectedValue());
+            this.llenarListSintoma(this.getListaSintomas());
+        }
+    }
+
+    public void cargarFechaActual() {
+        SimpleDateFormat formateador = new SimpleDateFormat("dd/MM/yyyy HH:mm", new Locale("es"));
+        Date fechaDate = new Date();
+        String fecha = formateador.format(fechaDate);
+        this.getFormularioEspecifico().getTxtFechaConsulta().setText(fecha);
+    }
+
+    public void tomarEnfermedad() {
+        if (Util.estaSeleccionadoCombo(this.getFormularioEspecifico().getCmbEnfermedades())) {
+            new Util().getMensajeError("No seleccionó nada.");
+        } else {
+            if (Util.estaIngresadoList(this.getListaEnfermedades(), this.getFormularioEspecifico().getCmbEnfermedades().getSelectedItem())) {
+                new Util().getMensajeError("Enfermedad ya ingresada.");
+            } else {
+                this.agregarEnfermedad();
+                this.getFormularioEspecifico().getCmbEnfermedades().setSelectedItem(null);
+                this.getFormularioEspecifico().getCmbEnfermedades().requestFocus();
+            }
+        }
+
+    }
+
+    public void tomarSintoma() {
+        if (Util.estaSeleccionadoCombo(this.getFormularioEspecifico().getCmbSintomas())) {
+            new Util().getMensajeError("No seleccionó nada.");
+        } else {
+            if (Util.estaIngresadoList(this.getListaSintomas(), this.getFormularioEspecifico().getCmbSintomas().getSelectedItem())) {
+                new Util().getMensajeError("Síntoma ya ingresado.");
+            } else {
+                this.agregarSintoma();
+                this.getFormularioEspecifico().getCmbSintomas().setSelectedItem(null);
+                this.getFormularioEspecifico().getCmbSintomas().requestFocus();
+            }
+        }
+    }
+
+    public void agregarSintoma() {
+        this.getListaSintomas().add(this.getFormularioEspecifico().getCmbSintomas().getSelectedItem());
+        this.llenarListSintoma(this.getListaSintomas());
+    }
+
+    public void agregarEnfermedad() {
+        this.getListaEnfermedades().add(this.getFormularioEspecifico().getCmbEnfermedades().getSelectedItem());
+        this.llenarListEnfermedades(this.getListaEnfermedades());
+    }
+
+    public void llenarListSintoma(List lista) {
+        GestorLista gestorLista = new GestorLista();
+        gestorLista.llenarList(lista, this.getFormularioEspecifico().getListSintomas());
+    }
+
+    public void llenarListEnfermedades(List lista) {
+        GestorLista gestorLista = new GestorLista();
+        gestorLista.llenarList(lista, this.getFormularioEspecifico().getListEnfermedades());
+    }
+
+    public void llenarListHistorial(List lista) {
+        GestorLista gestorLista = new GestorLista();
+        gestorLista.llenarList(lista, this.getFormularioEspecifico().getListHistorial());
+    }
+
+    public void clearListEnfermedades() {
+        GestorLista gestorLista = new GestorLista();
+        gestorLista.clearList(this.getFormularioEspecifico().getListEnfermedades());
+    }
+
+    public void clearListSintomas() {
+        GestorLista gestorLista = new GestorLista();
+        gestorLista.clearList(this.getFormularioEspecifico().getListSintomas());
+    }
+
+    public void clearListHistorial() {
+        GestorLista gestorLista = new GestorLista();
+        gestorLista.clearList(this.getFormularioEspecifico().getListHistorial());
+    }
+
+    @Override
+    public void cerrar() {
+        this.getFormularioEspecifico().setVisible(false);
+        this.getFormularioEspecifico().dispose();
+    }
+}

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="provincias" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="30" rightMargin="30" topMargin="20" bottomMargin="20" uuid="a4576308-e20a-4682-ad5e-b45910eb69b8">
+	<property name="ireport.scriptlethandling" value="0"/>
+	<property name="ireport.encoding" value="UTF-8"/>
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<import value="net.sf.jasperreports.engine.*"/>
+	<import value="java.util.*"/>
+	<import value="net.sf.jasperreports.engine.data.*"/>
+	<parameter name="TITULO" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="fecha" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="directorio" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="membrete" class="java.lang.String"/>
+	<parameter name="direccion" class="java.lang.String"/>
+	<parameter name="subtitulo" class="java.lang.String"/>
+	<parameter name="foto" class="java.lang.String"/>
+	<field name="nombre" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="111" splitType="Stretch">
+			<textField isBlankWhenNull="false">
+				<reportElement uuid="051c96b9-7d40-427b-a876-586305d2f566" key="textField" x="161" y="10" width="265" height="38"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="28" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{TITULO}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy" isBlankWhenNull="false">
+				<reportElement uuid="02571977-ddc1-4a7a-a727-a40229a35d89" key="textField-3" x="432" y="0" width="103" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle" rotation="None">
+					<font fontName="SansSerif" size="11"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement uuid="81646d1e-74a5-48f2-a587-c3941bcd3d5f" x="10" y="12" width="78" height="99"/>
+				<imageExpression><![CDATA[$P{foto}]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement uuid="d607c5c4-441d-4cf6-9c8a-c209b99fb5fc" x="105" y="89" width="440" height="20"/>
+				<textElement>
+					<font fontName="SansSerif" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{membrete}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="55cf4644-a52f-4b30-977a-1b14ae952fad" x="105" y="69" width="440" height="20"/>
+				<textElement>
+					<font fontName="SansSerif" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{direccion}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="50">
+			<line>
+				<reportElement uuid="af38b863-4036-451f-ac19-74043f851785" key="line-1" x="2" y="0" width="543" height="1"/>
+			</line>
+			<staticText>
+				<reportElement uuid="1b5b19f4-b25e-4f28-b5e0-a1523c529606" x="10" y="24" width="100" height="20"/>
+				<textElement>
+					<font fontName="SansSerif" size="12" isBold="false" isItalic="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Nombre]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="6c71e0f5-8c63-467d-acf8-e0aff64c6915" x="217" y="4" width="121" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="15" isBold="true" isItalic="false" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{subtitulo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="26">
+			<textField isBlankWhenNull="false">
+				<reportElement uuid="f3c95903-fc40-425b-9056-fdf56511e26d" key="textField-1" x="23" y="0" width="227" height="20"/>
+				<textElement>
+					<font fontName="SansSerif" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombre}.substring( 0,1).toUpperCase() +$F{nombre}.substring(1,$F{nombre}.length())]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="50" splitType="Stretch">
+			<textField isBlankWhenNull="false">
+				<reportElement uuid="e51f40ee-02f3-4d42-8bad-84f753d95df9" key="textField-4" x="2" y="17" width="126" height="33"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Numero pagina: " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement uuid="cb8f2c35-888b-4ba8-87e0-81c19cf18195" x="2" y="15" width="530" height="2"/>
+			</line>
+		</band>
+	</pageFooter>
+</jasperReport>

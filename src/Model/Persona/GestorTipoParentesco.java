@@ -1,0 +1,123 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package Model.Persona;
+
+import Hibernate.GestorHibernate;
+import Model.GestorConsultas;
+import Model.Ubicacion.GestorImprimir;
+import Model.Ubicacion.InterfazABM;
+import Utilidades.Util;
+import java.util.List;
+
+/**
+ *
+ * @author Emiliano
+ */
+public class GestorTipoParentesco extends GestorHibernate implements InterfazABM {
+    
+    private TipoParentesco model;
+
+    public GestorTipoParentesco() {
+        this.setModel(new TipoParentesco());
+    }
+      
+
+    public TipoParentesco getModel() {
+        return model;
+    }
+
+    public void setModel(TipoParentesco model) {
+        this.model = model;
+    }
+    
+    public void crearModelo() {
+        this.setModel(new TipoParentesco());
+    }
+
+    
+    public void guardar() {
+        try {
+            this.guardarObjeto(this.getModel());
+            new Util().getMensajeInformation("Tipo de parentesco guardado con éxito");
+        } catch (Exception e) {
+            new Util().getMensajeError("Error: " + e);
+        }
+    }
+
+    public void procesar(int modo) {
+        switch (modo) {
+            case 0:
+                this.guardar();
+                break;
+            case 1:
+                this.actualizar();
+                break;
+            case 2:
+                this.actualizarExterno();
+                break;
+            default:
+                break;
+        }
+    }
+
+    @Override
+    public void actualizar() {
+        try {
+            this.actualizarObjeto(this.getModel());
+            new Util().getMensajeInformation("Tipo de parentesco actualizado con éxito");
+        } catch (Exception e) {
+            new Util().getMensajeError("Error: " + e);
+        }
+
+    }
+
+    public void actualizarExterno() {
+        try {
+            this.actualizarObjeto(this.getModel());
+        } catch (Exception e) {
+            new Util().getMensajeError("Error: " + e);
+        }
+    }
+
+    @Override
+    public void eliminar() {
+        try {
+            this.getModel().asEliminado();
+            this.actualizarObjeto(this.getModel());
+            new Util().getMensajeInformation("Tipo de parentesco eliminado con éxito");
+        } catch (Exception e) {
+        }
+
+    }
+
+    @Override
+    public void imprimir() {
+        GestorImprimir gestImp= new GestorImprimir(this.listarTipoParentesco(), "Tipos de Parentesco", "provincias.jasper");
+        gestImp.imprimir();
+        
+
+    }
+
+    public List listarTipoParentesco() {
+        GestorConsultas gestor = new GestorConsultas(TipoParentesco.class);
+        gestor.addOrdenAscendente("nombre");
+        return gestor.resultConsulta();
+    }
+
+    public List listarFiltrarNombre(String nombre) {
+        GestorConsultas gestor = new GestorConsultas(TipoParentesco.class);
+        gestor.addFiltro("nombre", nombre);
+        gestor.addOrdenAscendente("nombre");
+        return gestor.resultConsulta();
+    }
+
+    public boolean isRepetido(String nombre) {
+        GestorConsultas gestor = new GestorConsultas(TipoParentesco.class);
+        gestor.addRestriccion("nombre", nombre);
+        return !gestor.resultConsulta().isEmpty();
+
+    }
+}
+

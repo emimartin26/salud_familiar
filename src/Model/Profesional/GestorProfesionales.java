@@ -1,0 +1,136 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package Model.Profesional;
+
+import Hibernate.GestorHibernate;
+import Model.GestorConsultas;
+import Model.Persona.Documento;
+import Model.Ubicacion.GestorImprimir;
+import Model.Ubicacion.InterfazABM;
+import Utilidades.Util;
+import Vistas.Profesional.GestorVistaProfesional;
+import java.util.List;
+import javax.swing.JOptionPane;
+
+/**
+ *
+ * @author Federico
+ */
+public class GestorProfesionales extends GestorHibernate implements InterfazABM {
+
+    private Profesional model;
+
+    public Profesional getModel() {
+        return model;
+    }
+
+    public void setModel(Profesional model) {
+        this.model = model;
+    }
+
+    public void crearModelo() {
+        this.setModel(new Profesional());
+    }
+
+    @Override
+    public void guardar() {
+        try {
+            this.guardarObjeto(this.getModel());
+            new Util().getMensajeInformation("Profesional guardado con éxito");
+        } catch (Exception e) {
+            new Util().getMensajeError("Error: " + e);
+        }
+    }
+
+    @Override
+    public void actualizar() {
+        try {
+            this.actualizarObjeto(this.getModel());
+            new Util().getMensajeInformation("Profesional actualizado con éxito");
+        } catch (Exception e) {
+            new Util().getMensajeError("Error: " + e);
+        }
+    }
+
+    @Override
+    public void eliminar() {
+        try {
+            this.getModel().asEliminado();
+            this.getModel().getDocumento().asEliminado();
+            this.actualizarObjeto(this.getModel());
+            new Util().getMensajeError("Profesional eliminado con éxito");
+        } catch (Exception e) {
+            new Util().getMensajeError("Error: " + e);
+        }
+    }
+
+    public void procesar(int modo) {
+        switch (modo) {
+            case 0:
+                this.guardar();
+                break;
+            case 1:
+                this.actualizar();
+                break;
+            default:
+                break;
+        }
+    }
+
+    @Override
+    public void imprimir() {
+        try {
+            GestorImprimir gestor = new GestorImprimir(this.listarProfesionales(), "Profesionales", "pacientes.jasper");
+            gestor.imprimir();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
+
+    public boolean isRepetido(String mat) {
+        GestorConsultas gestor = new GestorConsultas(Profesional.class);
+        gestor.addRestriccion("matricula", mat);
+        return !gestor.resultConsulta().isEmpty(); //|| dos;
+
+    }
+
+    public boolean isRepetido(Documento doc) {
+        GestorConsultas ges = new GestorConsultas(Documento.class);
+        ges.addRestriccion("num", doc.getNum());
+        ges.restriccionNoBorrado();
+        boolean uno = !ges.resultConsulta().isEmpty();
+        ges.resultConsulta().clear();
+        return uno; //|| dos;
+
+    }
+
+    public List listarProfesionales() {
+        GestorConsultas gestor = new GestorConsultas(Profesional.class);
+        gestor.addOrdenAscendente("apellido");
+        return gestor.resultConsulta();
+    }
+
+    public List listarFiltrarApellido(String apellidoFiltro) {
+        GestorConsultas gestor = new GestorConsultas(Profesional.class);
+        gestor.addFiltro("apellido", apellidoFiltro);
+        gestor.addOrdenAscendente("apellido");
+        return gestor.resultConsulta();
+    }
+
+    public List listarPorMatricula(String matricula) {
+        GestorConsultas gestor = new GestorConsultas(Profesional.class);
+        gestor.addFiltro("matricula", matricula);
+        gestor.addOrdenAscendente("apellido");
+        return gestor.resultConsulta();
+    }
+
+    public List listarPorProfesion(String profesion) {
+        GestorConsultas gestor = new GestorConsultas(Profesional.class);
+        gestor.addFiltroPorObjeto("profesion", profesion);
+        gestor.addOrdenAscendente("apellido");
+        return gestor.resultConsulta();
+
+    }
+}

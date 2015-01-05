@@ -1,0 +1,317 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package Vistas.Paciente;
+
+import Model.Paciente.GestorPaciente;
+import Model.Persona.GestorParentesco;
+import Model.Paciente.Paciente;
+import Model.Persona.GestorTipoParentesco;
+import Model.Persona.Parentesco;
+import Model.Persona.TipoParentesco;
+import Utilidades.GestorCombo;
+import Utilidades.GestorLista;
+import Utilidades.Util;
+import Vistas.GestorVista;
+import Vistas.InterfazFrm;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
+import javax.swing.JDesktopPane;
+
+/**
+ *
+ * @author Fede
+ */
+public class GestorVistaRelacionarParentesco extends GestorVista implements InterfazFrm {
+
+    private GestorParentesco gestor;
+    private GestorPaciente gestorPaciente;
+    private List listaParentescos;
+    private List listaPacientes;
+
+    public GestorVistaRelacionarParentesco(JDesktopPane escritorio, Paciente seleccionado) {
+        this.setEscritorio(escritorio);
+        this.setFrame(new FrmRelacionarParentesco(this));
+        this.crearGestorPaciente();
+        this.crearGestor();
+        this.getGestorPaciente().setModel(seleccionado);
+        this.cargarDatosPaciente(this.getGestorPaciente().getModel());
+        this.setearTituloHistoria(this.getGestorPaciente().getModel());
+        this.listaParentescos = new ArrayList();
+        this.listaPacientes = new ArrayList();
+        this.cargarParentesco();
+
+    }
+
+    public FrmRelacionarParentesco getFormularioEspecifico() {
+        return (FrmRelacionarParentesco) this.getFrame();
+    }
+
+    public GestorParentesco getGestor() {
+        return gestor;
+    }
+
+    public void setGestor(GestorParentesco gestor) {
+        this.gestor = gestor;
+    }
+
+    public GestorPaciente getGestorPaciente() {
+        return gestorPaciente;
+    }
+
+    public void setGestorPaciente(GestorPaciente gestorPaciente) {
+        this.gestorPaciente = gestorPaciente;
+    }
+
+    public List getListaParentescos() {
+        return listaParentescos;
+    }
+
+    public void setListaParentescos(List listaParentescos) {
+        this.listaParentescos = listaParentescos;
+    }
+
+    public List getListaPacientes() {
+        return listaPacientes;
+    }
+
+    public void setListaPacientes(List listaPacientes) {
+        this.listaPacientes = listaPacientes;
+    }
+
+    private void crearGestorPaciente() {
+        this.setGestorPaciente(new GestorPaciente());
+    }
+
+    private void crearGestor() {
+        this.setGestor(new GestorParentesco());
+    }
+
+    public void setModel(Parentesco model) {
+        this.gestor.setModel(model);
+    }
+
+    public Parentesco getModel() {
+        return gestor.getModel();
+    }
+
+    public void clearListParientes() {
+        GestorLista gestorLista = new GestorLista();
+        gestorLista.clearList(this.getFormularioEspecifico().getListParientes());
+    }
+
+    public void clearListPacientes() {
+        GestorLista gestorLista = new GestorLista();
+        gestorLista.clearList(this.getFormularioEspecifico().getListPacientes());
+    }
+
+    public void setearTituloHistoria(Paciente seleccionado) {
+        this.getFormularioEspecifico().setTitle("Relacionar Parientes a: " + seleccionado.getApellido().toUpperCase() + ", " + seleccionado.getNombre().toUpperCase());
+    }
+
+    public void cargarDatosPaciente(Paciente seleccionado) {
+        this.getFormularioEspecifico().getTxtApellido().setText(seleccionado.getApellido());
+        this.getFormularioEspecifico().getTxtNombre().setText(seleccionado.getNombre());
+        this.getFormularioEspecifico().getTxtFechaNacPers().setText(seleccionado.fechaFormateada());
+        this.getFormularioEspecifico().getTxtTipoDocumento().setText(seleccionado.getDocumento().getTipoDocumento().getNombre());
+        this.getFormularioEspecifico().getTxtNroDocumento().setText(seleccionado.getDocumento().getNum());
+        this.getFormularioEspecifico().getTxtEdad().setText(this.calcularEdad());
+    }
+
+    public void cargarParentesco() {
+        this.getListaParentescos().clear();
+        this.getFormularioEspecifico().getListParientes().removeAll();
+        this.getListaParentescos().addAll(this.getGestorPaciente().getModel().getParentesco());
+        this.llenarListParentescos(this.getListaParentescos());
+    }
+
+    @Override
+    public void abrir() {
+        this.getEscritorio().add(this.getFrame());
+        this.getFrame().setVisible(true);
+    }
+
+    public void guardar() {
+        if (comprobarCamposMinimos()) {
+            this.getGestor().crearModelo();
+            this.obtenerDatosParentezco();
+
+            this.getGestorPaciente().procesar(this.getModo());
+//                this.guardarRelacionInversa();
+//                this.getGestorPaciente().procesar(this.getModo());
+            this.limpiarPosGuardar();
+            this.cargarParentesco();
+
+        }
+    }
+
+    public void limpiarPosGuardar() {
+        this.clearListPacientes();
+        this.getFormularioEspecifico().configInicial();
+    }
+
+    public void eliminar() {
+        if (this.getFormularioEspecifico().getListParientes().getSelectedValue() == null) {
+            new Util().getMensajeError("No ha seleccionado nada");
+        } else {
+            String nombre = this.getFormularioEspecifico().getListParientes().getSelectedValue().toString();
+            switch (new Util().confirmacion("¿Desea eliminar el Paretesco: " + nombre.substring(15) + "?")) {
+                case 0://aceptar
+                    this.setModificar();
+                    this.eliminarParentesco();
+                    this.getGestorPaciente().getModel().getParentesco().clear();
+                    this.getGestorPaciente().getModel().getParentesco().addAll(this.getListaParentescos());
+                    this.getGestorPaciente().procesar(getModo());
+//                    this.getGestor().eliminar();
+                    this.getFormularioEspecifico().configInicial();
+                    this.clearListParientes();
+                    this.cargarParentesco();
+                    break;
+                case 2://cancelar
+                    break;
+            }
+        }
+    }
+
+    public void eliminarParentesco() {
+        this.getListaParentescos().remove(this.getFormularioEspecifico().getListParientes().getSelectedValue());
+    }
+
+    public TipoParentesco obtenerTipoParentescoInverso() {
+        TipoParentesco tipoParentesco = (TipoParentesco) this.getFormularioEspecifico().getCmbTipoParentesco().getSelectedItem();
+        int a = 0;
+        TipoParentesco tipoInverso = new TipoParentesco();
+
+        tipoInverso.setNombre("Hermano");
+        if (tipoInverso == tipoParentesco) {
+            a = 0;
+        }
+        tipoInverso.setNombre("Padre");
+        if (tipoInverso == tipoParentesco) {
+            a = 1;
+        }
+        tipoInverso.setNombre("Hijo");
+        if (tipoInverso == tipoParentesco) {
+            a = 2;
+        }
+        tipoInverso.setNombre("Abuelo");
+        if (tipoInverso == tipoParentesco) {
+            a = 3;
+        }
+        tipoInverso.setNombre("Nieto");
+        if (tipoInverso == tipoParentesco) {
+            a = 4;
+        }
+        switch (a) {
+            case 0:
+                tipoParentesco.setNombre("Hermano");
+                return tipoParentesco;
+            case 1:
+                tipoParentesco.setNombre("Hijo");
+            case 2:
+                tipoParentesco.setNombre("Padre");
+            case 3:
+                tipoParentesco.setNombre("Nieto");
+            case 4:
+                tipoParentesco.setNombre("Abuelo");
+        }
+        return tipoParentesco;
+    }
+
+    public void obtenerDatosParentezco() {
+        this.getModel().setFamiliar1(this.getGestorPaciente().getModel());
+        this.getModel().setTipoParentesco((TipoParentesco) this.getFormularioEspecifico().getCmbTipoParentesco().getSelectedItem());
+        this.getModel().setFamiliar2((Paciente) this.getFormularioEspecifico().getListPacientes().getSelectedValue());
+        this.getGestorPaciente().getModel().getParentesco().add(this.getModel());
+    }
+
+    public void guardarRelacionInversa() {
+        this.getGestor().crearModelo();
+        this.getModel().setFamiliar1((Paciente) this.getFormularioEspecifico().getListPacientes().getSelectedValue());
+        this.getModel().setTipoParentesco(this.obtenerTipoParentescoInverso());
+        this.getModel().setFamiliar2(this.getGestorPaciente().getModel());
+        this.getGestorPaciente().setModel((Paciente) this.getFormularioEspecifico().getListPacientes().getSelectedValue());
+        this.getGestorPaciente().getModel().getParentesco().add(this.getModel());
+    }
+
+    public boolean comprobarCamposMinimos() {
+        int a = 0;
+        if (this.getFormularioEspecifico().getListPacientes().getSelectedValue() == null) {
+            new Util().getMensajeError("No ha seleccionado ningún familiar.");
+            a = 1;
+        }
+        if (this.getFormularioEspecifico().getCmbTipoParentesco().getSelectedItem() == null) {
+            new Util().getMensajeError("No ha seleccionado ningún tipo de parentezco.");
+            a = 1;
+        }
+        return a == 0;
+
+    }
+
+    @Override
+    public void cerrar() {
+        this.getFormularioEspecifico().setVisible(false);
+        this.getFormularioEspecifico().dispose();
+    }
+
+    public void llenarListParentescos(List lista) {
+        GestorLista gestorLista = new GestorLista();
+        gestorLista.llenarList(lista, this.getFormularioEspecifico().getListParientes());
+    }
+
+    public void llenarListPacientes(List lista) {
+        GestorLista gestorLista = new GestorLista();
+        gestorLista.llenarList(lista, this.getFormularioEspecifico().getListPacientes());
+    }
+
+    private String calcularEdad() {
+
+        Date fechaHoy = new Date();
+        Date fechaNacimiento = this.getGestorPaciente().getModel().getFechaNac();
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        int edad = fechaHoy.getYear() - fechaNacimiento.getYear();
+
+        if ((fechaNacimiento.getMonth() - fechaHoy.getMonth()) > 0) {
+            edad--;
+        } else if ((fechaNacimiento.getMonth() - fechaHoy.getMonth()) == 0) {
+            if ((fechaNacimiento.getDate() - fechaHoy.getDate()) > 0) {
+                edad--;
+            }
+        }
+        return edad + " Año/s.";
+    }
+
+    public void cargarComboTipoParentesco() {
+        GestorCombo gestorCombo = new GestorCombo();
+        gestorCombo.cargarCombo(this.buscarTipoPantesco(), this.getFormularioEspecifico().getCmbTipoParentesco());
+    }
+
+    private List buscarPacientes() {
+        return this.getGestorPaciente().listarPaciente();
+    }
+
+    private List buscarTipoPantesco() {
+        GestorTipoParentesco gestorTP = new GestorTipoParentesco();
+        return gestorTP.listarTipoParentesco();
+    }
+
+    public void filtrar() {
+        if (this.campoBusquedaVacio()) {
+            List pacientes = this.getGestorPaciente().listarFiltrarApellido((this.getFormularioEspecifico().getTxtBuscar().getText().toLowerCase()));
+            pacientes.remove(this.getGestorPaciente().getModel());
+            this.llenarListPacientes(pacientes);
+
+        } else {
+            this.clearListPacientes();
+        }
+    }
+
+    public boolean campoBusquedaVacio() {
+        return (!Util.estaVacioTxt(this.getFormularioEspecifico().getTxtBuscar()));
+    }
+}
