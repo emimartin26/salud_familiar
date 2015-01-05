@@ -1,0 +1,32 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package Vistas.Ubicacion;
+
+import Vistas.GestorVista;
+import Vistas.InterfazFrm;
+import javax.swing.JDesktopPane;
+
+/**
+ *
+ * @author Emiliano
+ */
+public class GestorVistaLocalidad extends GestorVista implements InterfazFrm{
+
+    public GestorVistaLocalidad(JDesktopPane escritorio) {
+        this.setEscritorio(escritorio);
+        this.setFrame(new FrmLocalidad(this));
+    }
+
+    @Override
+    public void abrir() {
+        this.getEscritorio().add(this.getFrame());
+        this.getFrame().setVisible(true);
+    }
+
+    @Override
+    public void cerrar() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+}

@@ -1,0 +1,31 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package Model.Persona;
+
+/**
+ *
+ * @author Federico
+ */
+public class GestorCelular {
+     private Celular model;
+
+    public GestorCelular() {
+        this.setModel(new Celular());
+    }
+
+    public Celular getModel() {
+        return model;
+    }
+
+    public void setModel(Celular model) {
+        this.model = model;
+    }
+
+    public void crearModelo() {
+        this.setModel(new Celular());
+    }
+
+
+}

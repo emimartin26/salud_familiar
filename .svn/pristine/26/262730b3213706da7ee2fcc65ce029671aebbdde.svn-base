@@ -1,0 +1,825 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package Vistas.Paciente;
+
+import java.awt.Dimension;
+import java.awt.Toolkit;
+import javax.swing.*;
+
+/**
+ *
+ * @author Usuario
+ */
+public class FrmSintomas extends javax.swing.JInternalFrame {
+
+    private GestorVistaSintomas gestor;
+
+    public FrmSintomas(GestorVistaSintomas gestor) {
+        initComponents();
+        this.centrarVentana();
+        this.setGestor(gestor);
+        this.configInicial();
+    }
+    
+    private void centrarVentana() {
+        //este metodo devuelve el tamaño de la pantalla  
+        Dimension pantalla = Toolkit.getDefaultToolkit().getScreenSize();
+//obtenemos el tamaño de la ventana  
+        Dimension ventana = this.getSize();
+//para centrar la ventana lo hacemos con el siguiente calculo  
+        this.setLocation((pantalla.width - ventana.width) / 2, (pantalla.height - ventana.height) / 2);
+//y para finalizar la hacemos visible  
+    }
+
+
+    public GestorVistaSintomas getGestor() {
+        return gestor;
+    }
+
+    public void setGestor(GestorVistaSintomas gestor) {
+        this.gestor = gestor;
+    }
+
+    public JTextField getTxtDescripcion() {
+        return txtDescripcion;
+    }
+
+    public void setTxtDescripcion(JTextField txtDescripcion) {
+        this.txtDescripcion = txtDescripcion;
+    }
+
+    public JButton getBtnBuscar() {
+        return btnBuscar;
+    }
+
+    public void setBtnBuscar(JButton btnBuscar) {
+        this.btnBuscar = btnBuscar;
+    }
+
+    public JButton getBtnCancelar() {
+        return btnCancelar;
+    }
+
+    public void setBtnCancelar(JButton btnCancelar) {
+        this.btnCancelar = btnCancelar;
+    }
+
+    public JButton getBtnEliminar() {
+        return btnEliminar;
+    }
+
+    public void setBtnEliminar(JButton btnEliminar) {
+        this.btnEliminar = btnEliminar;
+    }
+
+    public JButton getBtnGuardar() {
+        return btnGuardar;
+    }
+
+    public void setBtnGuardar(JButton btnGuardar) {
+        this.btnGuardar = btnGuardar;
+    }
+
+    public JButton getBtnLimpiar() {
+        return btnLimpiar;
+    }
+
+    public void setBtnLimpiar(JButton btnLimpiar) {
+        this.btnLimpiar = btnLimpiar;
+    }
+
+    public JButton getBtnModificar() {
+        return btnModificar;
+    }
+
+    public void setBtnModificar(JButton btnModificar) {
+        this.btnModificar = btnModificar;
+    }
+
+    public JButton getBtnNuevo() {
+        return btnNuevo;
+    }
+
+    public void setBtnNuevo(JButton btnNuevo) {
+        this.btnNuevo = btnNuevo;
+    }
+
+    public JButton getBtnSalir() {
+        return btnSalir;
+    }
+
+    public void setBtnSalir(JButton btnSalir) {
+        this.btnSalir = btnSalir;
+    }
+
+    public JScrollPane getjScrollPane1() {
+        return jScrollPane1;
+    }
+
+    public void setjScrollPane1(JScrollPane jScrollPane1) {
+        this.jScrollPane1 = jScrollPane1;
+    }
+
+    public JTextField getTxtNombreNuevoSintoma() {
+        return txtNombreNuevoSintoma;
+    }
+
+    public void setTxtNombreNuevoSintoma(JTextField txtNombreNuevoSintoma) {
+        this.txtNombreNuevoSintoma = txtNombreNuevoSintoma;
+    }
+
+    public JTextField getTxtNombre() {
+        return txtNombreSintoma;
+    }
+
+    public JButton getBtnListar() {
+        return btnListar;
+    }
+
+    public void setBtnListar(JButton btnListar) {
+        this.btnListar = btnListar;
+    }
+
+    public void setTxtNombreSintoma(JTextField txtNombreSintoma) {
+        this.txtNombreSintoma = txtNombreSintoma;
+    }
+
+    public JComboBox getCmbEnfermedad() {
+        return cmbEnfermedad;
+    }
+
+    public JList getLista() {
+        return lista;
+    }
+
+    public void setLista(JList lista) {
+        this.lista = lista;
+    }
+
+    public void setCmbEnfermedad(JComboBox cmbEnfermedad) {
+        this.cmbEnfermedad = cmbEnfermedad;
+    }
+
+    public void guardar() {
+        this.getGestor().guardar();
+    }
+
+    public JButton getBtnImprimir() {
+        return btnImprimir;
+    }
+
+    public void setBtnImprimir(JButton btnImprimir) {
+        this.btnImprimir = btnImprimir;
+    }
+
+    public JCheckBox getChekEnfermedad() {
+        return chekEnfermedad;
+    }
+
+    public void setChekEnfermedad(JCheckBox checkEnfermedad) {
+        this.chekEnfermedad = checkEnfermedad;
+    }
+
+    public JButton getBtnAux() {
+        return this.btnAux;
+    }
+
+    public void setBtnAux(JButton btnAux) {
+        this.btnAux = btnAux;
+    }
+
+    public JCheckBox getChekNombre() {
+        return chekNombre;
+    }
+
+    public void setChekNombre(JCheckBox checkNombre) {
+        this.chekNombre = checkNombre;
+    }
+
+    public void listar() {
+        this.getGestor().listar();
+    }
+
+    public void filtrar() {
+        this.getGestor().filtrar();
+    }
+
+    public void limpiarLista() {
+        this.getGestor().clearList();
+    }
+
+    public void eliminar() {
+        this.getGestor().eliminar();
+    }
+    public void imprimir(){
+        this.getGestor().imprimir();
+    }
+
+    public void configCheckNombre() {
+        this.getGestor().configCheckNombre();
+    }
+
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        panelCriterioBusqueda = new javax.swing.JPanel();
+        lblNombre = new javax.swing.JLabel();
+        txtNombreSintoma = new javax.swing.JTextField();
+        lblEnfermedad = new javax.swing.JLabel();
+        cmbEnfermedad = new javax.swing.JComboBox();
+        chekNombre = new javax.swing.JCheckBox();
+        chekEnfermedad = new javax.swing.JCheckBox();
+        btnAux = new javax.swing.JButton();
+        panelMuestraSintoma = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        lista = new javax.swing.JList();
+        btnLimpiar = new javax.swing.JButton();
+        btnListar = new javax.swing.JButton();
+        panelNuevoSintoma = new javax.swing.JPanel();
+        lblNombreNuevoSintoma = new javax.swing.JLabel();
+        txtNombreNuevoSintoma = new javax.swing.JTextField();
+        txtDescripcion = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        panelBotones = new javax.swing.JPanel();
+        btnNuevo = new javax.swing.JButton();
+        btnBuscar = new javax.swing.JButton();
+        btnGuardar = new javax.swing.JButton();
+        btnModificar = new javax.swing.JButton();
+        btnImprimir = new javax.swing.JButton();
+        btnEliminar = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
+        jSeparator1 = new javax.swing.JSeparator();
+        panelSalir = new javax.swing.JPanel();
+        btnSalir = new javax.swing.JButton();
+
+        setTitle("Sintomas");
+
+        panelCriterioBusqueda.setBorder(javax.swing.BorderFactory.createTitledBorder("Búsqueda"));
+
+        lblNombre.setText("Nombre");
+
+        txtNombreSintoma.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNombreSintomaActionPerformed(evt);
+            }
+        });
+        txtNombreSintoma.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtNombreSintomaKeyReleased(evt);
+            }
+        });
+
+        lblEnfermedad.setText("Enfermedad");
+
+        cmbEnfermedad.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cmbEnfermedadMouseClicked(evt);
+            }
+        });
+        cmbEnfermedad.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                cmbEnfermedadKeyPressed(evt);
+            }
+        });
+
+        chekNombre.setText("Sólo Nombre");
+        chekNombre.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                chekNombreItemStateChanged(evt);
+            }
+        });
+        chekNombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chekNombreActionPerformed(evt);
+            }
+        });
+
+        chekEnfermedad.setText("Sólo Enfermedad");
+        chekEnfermedad.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                chekEnfermedadItemStateChanged(evt);
+            }
+        });
+
+        btnAux.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Buscar.png"))); // NOI18N
+        btnAux.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAuxActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panelCriterioBusquedaLayout = new javax.swing.GroupLayout(panelCriterioBusqueda);
+        panelCriterioBusqueda.setLayout(panelCriterioBusquedaLayout);
+        panelCriterioBusquedaLayout.setHorizontalGroup(
+            panelCriterioBusquedaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelCriterioBusquedaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelCriterioBusquedaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblEnfermedad)
+                    .addComponent(lblNombre))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelCriterioBusquedaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(cmbEnfermedad, 0, 368, Short.MAX_VALUE)
+                    .addComponent(txtNombreSintoma))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnAux, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(42, 42, 42)
+                .addComponent(chekNombre)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(chekEnfermedad)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        panelCriterioBusquedaLayout.setVerticalGroup(
+            panelCriterioBusquedaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelCriterioBusquedaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelCriterioBusquedaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelCriterioBusquedaLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(panelCriterioBusquedaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(chekNombre)
+                            .addComponent(chekEnfermedad)))
+                    .addGroup(panelCriterioBusquedaLayout.createSequentialGroup()
+                        .addGroup(panelCriterioBusquedaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblNombre)
+                            .addComponent(txtNombreSintoma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(panelCriterioBusquedaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnAux, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(cmbEnfermedad)
+                            .addComponent(lblEnfermedad))
+                        .addGap(0, 18, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+
+        panelMuestraSintoma.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder("")));
+
+        jScrollPane1.setViewportView(lista);
+
+        btnLimpiar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/limpiar.png"))); // NOI18N
+        btnLimpiar.setText("Limpiar");
+        btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimpiarActionPerformed(evt);
+            }
+        });
+
+        btnListar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/listar.png"))); // NOI18N
+        btnListar.setText("Listar Completo");
+        btnListar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnListarActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panelMuestraSintomaLayout = new javax.swing.GroupLayout(panelMuestraSintoma);
+        panelMuestraSintoma.setLayout(panelMuestraSintomaLayout);
+        panelMuestraSintomaLayout.setHorizontalGroup(
+            panelMuestraSintomaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelMuestraSintomaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(78, 78, 78)
+                .addGroup(panelMuestraSintomaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnListar, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        panelMuestraSintomaLayout.setVerticalGroup(
+            panelMuestraSintomaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelMuestraSintomaLayout.createSequentialGroup()
+                .addGroup(panelMuestraSintomaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelMuestraSintomaLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE))
+                    .addGroup(panelMuestraSintomaLayout.createSequentialGroup()
+                        .addGap(60, 60, 60)
+                        .addComponent(btnLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnListar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+
+        panelNuevoSintoma.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Datos", 0, 0, null, new java.awt.Color(0, 0, 0)));
+
+        lblNombreNuevoSintoma.setText("Nombre");
+
+        txtNombreNuevoSintoma.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtNombreNuevoSintomaKeyPressed(evt);
+            }
+        });
+
+        jLabel1.setText("Descripción");
+
+        javax.swing.GroupLayout panelNuevoSintomaLayout = new javax.swing.GroupLayout(panelNuevoSintoma);
+        panelNuevoSintoma.setLayout(panelNuevoSintomaLayout);
+        panelNuevoSintomaLayout.setHorizontalGroup(
+            panelNuevoSintomaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelNuevoSintomaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelNuevoSintomaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblNombreNuevoSintoma)
+                    .addComponent(jLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelNuevoSintomaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtNombreNuevoSintoma)
+                    .addComponent(txtDescripcion))
+                .addContainerGap())
+        );
+        panelNuevoSintomaLayout.setVerticalGroup(
+            panelNuevoSintomaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelNuevoSintomaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelNuevoSintomaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblNombreNuevoSintoma)
+                    .addComponent(txtNombreNuevoSintoma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelNuevoSintomaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addContainerGap(16, Short.MAX_VALUE))
+        );
+
+        panelBotones.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+
+        btnNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/accept.png"))); // NOI18N
+        btnNuevo.setText("Nuevo");
+        btnNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevoActionPerformed(evt);
+            }
+        });
+
+        btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Buscar.png"))); // NOI18N
+        btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
+
+        btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/guardar.png"))); // NOI18N
+        btnGuardar.setText("Guardar");
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
+
+        btnModificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/modificar.png"))); // NOI18N
+        btnModificar.setText("Modificar");
+        btnModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarActionPerformed(evt);
+            }
+        });
+
+        btnImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/impresora.png"))); // NOI18N
+        btnImprimir.setText("Imprimir");
+        btnImprimir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnImprimirActionPerformed(evt);
+            }
+        });
+
+        btnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/eliminar.png"))); // NOI18N
+        btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
+
+        btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/cancelar.png"))); // NOI18N
+        btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panelBotonesLayout = new javax.swing.GroupLayout(panelBotones);
+        panelBotones.setLayout(panelBotonesLayout);
+        panelBotonesLayout.setHorizontalGroup(
+            panelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelBotonesLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        panelBotonesLayout.setVerticalGroup(
+            panelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelBotonesLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnModificar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnNuevo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnImprimir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnGuardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+
+        panelSalir.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+
+        btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/salir.png"))); // NOI18N
+        btnSalir.setText("Salir");
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panelSalirLayout = new javax.swing.GroupLayout(panelSalir);
+        panelSalir.setLayout(panelSalirLayout);
+        panelSalirLayout.setHorizontalGroup(
+            panelSalirLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelSalirLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnSalir, javax.swing.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        panelSalirLayout.setVerticalGroup(
+            panelSalirLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelSalirLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(btnSalir))
+        );
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(panelNuevoSintoma, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(panelCriterioBusqueda, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 716, Short.MAX_VALUE)
+                                .addComponent(panelMuestraSintoma, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(panelBotones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 566, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(panelSalir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(25, 25, 25))))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(panelCriterioBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panelMuestraSintoma, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(panelNuevoSintoma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(55, 55, 55)
+                .addComponent(panelBotones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(panelSalir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(57, 57, 57))
+        );
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void cmbEnfermedadMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cmbEnfermedadMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbEnfermedadMouseClicked
+
+    private void cmbEnfermedadKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cmbEnfermedadKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbEnfermedadKeyPressed
+    private void txtNombreNuevoSintomaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreNuevoSintomaKeyPressed
+        //this.configNuevo();
+        // this.configCancelar();
+    }//GEN-LAST:event_txtNombreNuevoSintomaKeyPressed
+
+    private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
+        this.configNuevo();
+    }//GEN-LAST:event_btnNuevoActionPerformed
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        this.configBuscar();
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        this.getGestor().cerrar();
+    }//GEN-LAST:event_btnSalirActionPerformed
+
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        this.guardar();
+    }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+        this.configModificar();
+    }//GEN-LAST:event_btnModificarActionPerformed
+
+    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
+        this.configListar();
+    }//GEN-LAST:event_btnLimpiarActionPerformed
+
+    private void btnListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarActionPerformed
+        this.listar();
+    }//GEN-LAST:event_btnListarActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        this.eliminar();
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        this.configCancelar();
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
+        this.imprimir();
+    }//GEN-LAST:event_btnImprimirActionPerformed
+
+    private void chekNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chekNombreActionPerformed
+    }//GEN-LAST:event_chekNombreActionPerformed
+
+    private void chekNombreItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_chekNombreItemStateChanged
+        this.getGestor().configCheckNombre();
+    }//GEN-LAST:event_chekNombreItemStateChanged
+
+    private void chekEnfermedadItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_chekEnfermedadItemStateChanged
+        this.getGestor().configCheckEnfermedad();
+    }//GEN-LAST:event_chekEnfermedadItemStateChanged
+
+    private void btnAuxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAuxActionPerformed
+        this.filtrar();
+    }//GEN-LAST:event_btnAuxActionPerformed
+
+    private void txtNombreSintomaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreSintomaKeyReleased
+        this.getGestor().filtrar();
+    }//GEN-LAST:event_txtNombreSintomaKeyReleased
+
+    private void txtNombreSintomaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreSintomaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombreSintomaActionPerformed
+
+    public void setConfigBtnInicial() {
+        this.getBtnNuevo().setEnabled(true);
+        this.getBtnBuscar().setEnabled(true);
+        this.getBtnEliminar().setEnabled(false);
+        this.getBtnGuardar().setEnabled(false);
+        this.getBtnModificar().setEnabled(false);
+        this.getBtnLimpiar().setEnabled(false);
+        this.getTxtNombreNuevoSintoma().setEnabled(false);
+        this.getTxtNombre().setEnabled(false);
+        this.getBtnCancelar().setEnabled(false);
+        this.getLista().setEnabled(true);
+        this.getBtnListar().setEnabled(false);
+        this.getCmbEnfermedad().setEnabled(false);
+        this.getTxtDescripcion().setEnabled(false);
+        this.getBtnAux().setEnabled(false);
+        this.getChekEnfermedad().setEnabled(false);
+        this.getChekNombre().setEnabled(false);
+        this.getChekEnfermedad().setSelected(false);
+        this.getChekNombre().setSelected(false);
+    }
+
+    public void setConfigBtnNuevo() {
+        this.getTxtNombreNuevoSintoma().setEnabled(true);
+        this.getTxtDescripcion().setEnabled(true);
+        this.getBtnGuardar().setEnabled(true);
+        this.getBtnNuevo().setEnabled(false);
+        this.getBtnBuscar().setEnabled(false);
+        this.getBtnCancelar().setEnabled(true);
+    }
+
+    public void setConfigBtnListar() {
+        this.getBtnModificar().setEnabled(false);
+        this.getBtnEliminar().setEnabled(false);
+        this.getBtnLimpiar().setEnabled(false);
+    }
+
+    public void setConfigBtnFiltrar(Boolean b) {
+        this.getBtnLimpiar().setEnabled(b);
+        this.getBtnModificar().setEnabled(b);
+        this.getBtnEliminar().setEnabled(b);
+    }
+
+    public void setConfigBtnLimpiar(Boolean b) {
+        this.getBtnLimpiar().setEnabled(b);
+    }
+
+    public void setConfigBtnBuscar() {
+        this.getTxtNombre().setEnabled(false);
+        this.getCmbEnfermedad().setEnabled(false);
+        this.getBtnNuevo().setEnabled(false);
+        this.getBtnBuscar().setEnabled(false);
+        this.getBtnCancelar().setEnabled(true);
+        this.getBtnModificar().setEnabled(true);
+        this.getBtnEliminar().setEnabled(true);
+        this.getLista().setEnabled(true);
+        this.getBtnListar().setEnabled(true);
+        this.getChekNombre().setEnabled(true);
+        this.getChekEnfermedad().setEnabled(true);
+        this.getBtnLimpiar().setEnabled(false);
+        this.getGestor().cargarComboEnfermedad();
+
+    }
+
+    public void limpiarTxt() {
+        this.getTxtNombre().setText("");
+        this.getTxtNombreNuevoSintoma().setText("");
+    }
+
+    public void configInicial() {
+        this.setConfigBtnInicial();
+        this.limpiarTxt();
+    }
+
+    public void configCancelar() {
+        this.setConfigBtnInicial();
+        this.limpiarLista();
+        this.limpiarTxt();
+    }
+
+    public void configNuevo() {
+        this.setConfigBtnNuevo();
+        this.getGestor().setNuevo();
+        this.getTxtNombreNuevoSintoma().requestFocus();
+    }
+
+    public void configBuscar() {
+        this.setConfigBtnBuscar();
+        this.getGestor().cargarComboEnfermedad();
+        //this.getTxtNombreSintoma().requestFocus();
+    }
+
+    public void configModificar() {
+        this.getGestor().setModificar();
+        this.getGestor().accionModificar();
+        this.getTxtNombre().requestFocus();
+    }
+
+    public void configListar() {
+        this.limpiarLista();
+        this.getTxtNombre().setText("");
+        this.setConfigBtnListar();
+        this.getTxtNombre().requestFocus();
+
+    }
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAux;
+    private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnEliminar;
+    private javax.swing.JButton btnGuardar;
+    private javax.swing.JButton btnImprimir;
+    private javax.swing.JButton btnLimpiar;
+    private javax.swing.JButton btnListar;
+    private javax.swing.JButton btnModificar;
+    private javax.swing.JButton btnNuevo;
+    private javax.swing.JButton btnSalir;
+    private javax.swing.JCheckBox chekEnfermedad;
+    private javax.swing.JCheckBox chekNombre;
+    private javax.swing.JComboBox cmbEnfermedad;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JLabel lblEnfermedad;
+    private javax.swing.JLabel lblNombre;
+    private javax.swing.JLabel lblNombreNuevoSintoma;
+    private javax.swing.JList lista;
+    private javax.swing.JPanel panelBotones;
+    private javax.swing.JPanel panelCriterioBusqueda;
+    private javax.swing.JPanel panelMuestraSintoma;
+    private javax.swing.JPanel panelNuevoSintoma;
+    private javax.swing.JPanel panelSalir;
+    private javax.swing.JTextField txtDescripcion;
+    private javax.swing.JTextField txtNombreNuevoSintoma;
+    private javax.swing.JTextField txtNombreSintoma;
+    // End of variables declaration//GEN-END:variables
+}

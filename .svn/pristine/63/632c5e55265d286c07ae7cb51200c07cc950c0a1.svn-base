@@ -1,0 +1,45 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package Model.Paciente;
+
+import javax.persistence.*;
+
+/**
+ *
+ * @author Emiliano
+ */
+@Entity
+@Table(name = "historiaClinica")
+public class HistoriaClinica {
+
+    @Id
+    @GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY)
+    private long id;
+    private int estado;
+    public final static int NORMAL = 0;
+    public final static int ELIMINADO = 1;
+    @OneToOne(targetEntity = Paciente.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Paciente paciente;
+
+    public Paciente getPaciente() {
+        return paciente;
+    }
+
+    public void setPaciente(Paciente paciente) {
+        this.paciente = paciente;
+    }
+
+    public int getEstado() {
+        return estado;
+    }
+
+    public void setEstado(int estado) {
+        this.estado = estado;
+    }
+
+    public void asEliminado() {
+        this.setEstado(Enfermedad.ELIMINADO);
+    }
+}

@@ -1,0 +1,737 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package Vistas.Ubicacion;
+
+import java.awt.event.ItemEvent;
+import javax.swing.*;
+
+/**
+ *
+ * @author Emiliano
+ */
+public class FrmProvincia extends javax.swing.JInternalFrame {
+
+    private GestorVistaProvincia gestor;
+
+    /**
+     * Creates new form FrmProvincia
+     */
+    public FrmProvincia(GestorVistaProvincia gestor) {
+        initComponents();
+        this.configInicial();
+        this.setGestor(gestor);
+    }
+
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        panelCriterioBusqueda = new javax.swing.JPanel();
+        txtNombreProvBuscar = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        cmbPaisBuscar = new javax.swing.JComboBox();
+        btnAux = new javax.swing.JButton();
+        chekNombre = new javax.swing.JCheckBox();
+        chekPais = new javax.swing.JCheckBox();
+        panelMostrarProvincias = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        lista = new javax.swing.JList();
+        btnListar = new javax.swing.JButton();
+        btnLimpiar = new javax.swing.JButton();
+        panelDatosNuevaProvincia = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        txtNombre = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        cmbPais = new javax.swing.JComboBox();
+        btnNuevoPais = new javax.swing.JButton();
+        panelSalir = new javax.swing.JPanel();
+        btnSalir = new javax.swing.JButton();
+        jSeparator1 = new javax.swing.JSeparator();
+        panelBotones = new javax.swing.JPanel();
+        btnEliminar = new javax.swing.JButton();
+        btnModificar = new javax.swing.JButton();
+        btnBuscar = new javax.swing.JButton();
+        btnNuevo = new javax.swing.JButton();
+        btnGuardar = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
+        btnImprimir = new javax.swing.JButton();
+
+        setTitle("Administrar Provincia");
+
+        panelCriterioBusqueda.setBorder(javax.swing.BorderFactory.createTitledBorder("Búsqueda"));
+
+        txtNombreProvBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtNombreProvBuscarKeyReleased(evt);
+            }
+        });
+
+        jLabel1.setText("Nombre");
+
+        jLabel2.setText("País");
+
+        btnAux.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Buscar.png"))); // NOI18N
+        btnAux.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAuxActionPerformed(evt);
+            }
+        });
+
+        chekNombre.setText("Sólo Nombre");
+        chekNombre.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                chekNombreItemStateChanged(evt);
+            }
+        });
+        chekNombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chekNombreActionPerformed(evt);
+            }
+        });
+
+        chekPais.setText("Sólo Pais");
+        chekPais.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                chekPaisItemStateChanged(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panelCriterioBusquedaLayout = new javax.swing.GroupLayout(panelCriterioBusqueda);
+        panelCriterioBusqueda.setLayout(panelCriterioBusquedaLayout);
+        panelCriterioBusquedaLayout.setHorizontalGroup(
+            panelCriterioBusquedaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelCriterioBusquedaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelCriterioBusquedaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2))
+                .addGap(18, 18, 18)
+                .addGroup(panelCriterioBusquedaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtNombreProvBuscar)
+                    .addGroup(panelCriterioBusquedaLayout.createSequentialGroup()
+                        .addComponent(cmbPaisBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnAux, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(166, 166, 166)
+                        .addComponent(chekNombre)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(chekPais)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        panelCriterioBusquedaLayout.setVerticalGroup(
+            panelCriterioBusquedaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelCriterioBusquedaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelCriterioBusquedaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtNombreProvBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(panelCriterioBusquedaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelCriterioBusquedaLayout.createSequentialGroup()
+                        .addGroup(panelCriterioBusquedaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnAux, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addGroup(panelCriterioBusquedaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel2)
+                                .addComponent(cmbPaisBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelCriterioBusquedaLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(panelCriterioBusquedaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(chekNombre)
+                            .addComponent(chekPais))
+                        .addContainerGap())))
+        );
+
+        panelMostrarProvincias.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+
+        jScrollPane2.setViewportView(lista);
+
+        btnListar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/listar.png"))); // NOI18N
+        btnListar.setText("Listar Completo");
+        btnListar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnListarActionPerformed(evt);
+            }
+        });
+
+        btnLimpiar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/limpiar.png"))); // NOI18N
+        btnLimpiar.setText("Limpiar");
+        btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimpiarActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panelMostrarProvinciasLayout = new javax.swing.GroupLayout(panelMostrarProvincias);
+        panelMostrarProvincias.setLayout(panelMostrarProvinciasLayout);
+        panelMostrarProvinciasLayout.setHorizontalGroup(
+            panelMostrarProvinciasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelMostrarProvinciasLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2)
+                .addGap(60, 60, 60)
+                .addGroup(panelMostrarProvinciasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnLimpiar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnListar, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(39, 39, 39))
+        );
+        panelMostrarProvinciasLayout.setVerticalGroup(
+            panelMostrarProvinciasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelMostrarProvinciasLayout.createSequentialGroup()
+                .addGroup(panelMostrarProvinciasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelMostrarProvinciasLayout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelMostrarProvinciasLayout.createSequentialGroup()
+                        .addGap(60, 60, 60)
+                        .addComponent(btnLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnListar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+
+        panelDatosNuevaProvincia.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos"));
+
+        jLabel5.setText("Nombre");
+
+        jLabel6.setText("País");
+
+        btnNuevoPais.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/mas.png"))); // NOI18N
+        btnNuevoPais.setMaximumSize(new java.awt.Dimension(1, 1));
+        btnNuevoPais.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevoPaisActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panelDatosNuevaProvinciaLayout = new javax.swing.GroupLayout(panelDatosNuevaProvincia);
+        panelDatosNuevaProvincia.setLayout(panelDatosNuevaProvinciaLayout);
+        panelDatosNuevaProvinciaLayout.setHorizontalGroup(
+            panelDatosNuevaProvinciaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelDatosNuevaProvinciaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelDatosNuevaProvinciaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel6))
+                .addGap(18, 18, 18)
+                .addGroup(panelDatosNuevaProvinciaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtNombre)
+                    .addGroup(panelDatosNuevaProvinciaLayout.createSequentialGroup()
+                        .addComponent(cmbPais, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnNuevoPais, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        panelDatosNuevaProvinciaLayout.setVerticalGroup(
+            panelDatosNuevaProvinciaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelDatosNuevaProvinciaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelDatosNuevaProvinciaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(panelDatosNuevaProvinciaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelDatosNuevaProvinciaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel6)
+                        .addComponent(cmbPais, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnNuevoPais, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        panelSalir.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+
+        btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/salir.png"))); // NOI18N
+        btnSalir.setText("Salir");
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panelSalirLayout = new javax.swing.GroupLayout(panelSalir);
+        panelSalir.setLayout(panelSalirLayout);
+        panelSalirLayout.setHorizontalGroup(
+            panelSalirLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelSalirLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        panelSalirLayout.setVerticalGroup(
+            panelSalirLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelSalirLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        panelBotones.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+
+        btnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/eliminar.png"))); // NOI18N
+        btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
+
+        btnModificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/modificar.png"))); // NOI18N
+        btnModificar.setText("Modificar");
+        btnModificar.setMargin(new java.awt.Insets(2, 1, 2, 14));
+        btnModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarActionPerformed(evt);
+            }
+        });
+
+        btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Buscar.png"))); // NOI18N
+        btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
+
+        btnNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/accept.png"))); // NOI18N
+        btnNuevo.setText("Nuevo");
+        btnNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevoActionPerformed(evt);
+            }
+        });
+
+        btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/guardar.png"))); // NOI18N
+        btnGuardar.setText("Guardar");
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
+
+        btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/cancelar.png"))); // NOI18N
+        btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
+
+        btnImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/impresora.png"))); // NOI18N
+        btnImprimir.setText("Imprimir");
+        btnImprimir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnImprimirActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panelBotonesLayout = new javax.swing.GroupLayout(panelBotones);
+        panelBotones.setLayout(panelBotonesLayout);
+        panelBotonesLayout.setHorizontalGroup(
+            panelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelBotonesLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        panelBotonesLayout.setVerticalGroup(
+            panelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelBotonesLayout.createSequentialGroup()
+                .addContainerGap(16, Short.MAX_VALUE)
+                .addGroup(panelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
+        );
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(panelBotones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelCriterioBusqueda, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelMostrarProvincias, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelDatosNuevaProvincia, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jSeparator1)
+                        .addGap(18, 18, 18)
+                        .addComponent(panelSalir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(panelCriterioBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(panelMostrarProvincias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(panelDatosNuevaProvincia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                .addComponent(panelBotones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(16, 16, 16)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(panelSalir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
+
+        java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
+        setBounds((screenSize.width-751)/2, (screenSize.height-616)/2, 751, 616);
+    }// </editor-fold>//GEN-END:initComponents
+
+    public JCheckBox getChekNombre() {
+        return chekNombre;
+    }
+
+    public void setChekNombre(JCheckBox chekNombre) {
+        this.chekNombre = chekNombre;
+    }
+
+    public JCheckBox getChekPais() {
+        return chekPais;
+    }
+
+    public void setChekPais(JCheckBox chekPais) {
+        this.chekPais = chekPais;
+    }
+
+    public GestorVistaProvincia getGestor() {
+        return gestor;
+    }
+
+    public void setGestor(GestorVistaProvincia gestor) {
+        this.gestor = gestor;
+    }
+
+    public JButton getBtnBuscar() {
+        return btnBuscar;
+    }
+
+    public void setBtnBuscar(JButton btnBuscar) {
+        this.btnBuscar = btnBuscar;
+    }
+
+    public JButton getBtnCancelar() {
+        return btnCancelar;
+    }
+
+    public void setBtnCancelar(JButton btnCancelar) {
+        this.btnCancelar = btnCancelar;
+    }
+
+    public JButton getBtnEliminar() {
+        return btnEliminar;
+    }
+
+    public void setBtnEliminar(JButton btnEliminar) {
+        this.btnEliminar = btnEliminar;
+    }
+
+    public JButton getBtnLimpiar() {
+        return btnLimpiar;
+    }
+
+    public void setBtnLimpiar(JButton btnLimpiar) {
+        this.btnLimpiar = btnLimpiar;
+    }
+
+    public JButton getBtnNuevoPais() {
+        return btnNuevoPais;
+    }
+
+    public void setBtnNuevoPais(JButton btnNuevoPais) {
+        this.btnNuevoPais = btnNuevoPais;
+    }
+
+    public JButton getBtnModificar() {
+        return btnModificar;
+    }
+
+    public void setBtnModificar(JButton btnModificar) {
+        this.btnModificar = btnModificar;
+    }
+
+    public JButton getBtnNuevo() {
+        return btnNuevo;
+    }
+
+    public void setBtnNuevo(JButton btnNuevo) {
+        this.btnNuevo = btnNuevo;
+    }
+
+    public JButton getBtnSalir() {
+        return btnSalir;
+    }
+
+    public void setBtnSalir(JButton btnSalir) {
+        this.btnSalir = btnSalir;
+    }
+
+    public JComboBox getCmbPais() {
+        return cmbPais;
+    }
+
+    public void setCmbPais(JComboBox cmbPais) {
+        this.cmbPais = cmbPais;
+    }
+
+    public JComboBox getCmbPaisBuscar() {
+        return cmbPaisBuscar;
+    }
+
+    public void setCmbPaisBuscar(JComboBox cmbPaisBuscar) {
+        this.cmbPaisBuscar = cmbPaisBuscar;
+    }
+
+    public JList getLista() {
+        return lista;
+    }
+
+    public void setLista(JList lista) {
+        this.lista = lista;
+    }
+
+    public JTextField getTxtNombre() {
+        return txtNombre;
+    }
+
+    public void setTxtNombre(JTextField txtNombreNuevoPais) {
+        this.txtNombre = txtNombreNuevoPais;
+    }
+
+    public JTextField getTxtNombreProvBuscar() {
+        return txtNombreProvBuscar;
+    }
+
+    public void setTxtNombreProvBuscar(JTextField txtNombreProvBuscar) {
+        this.txtNombreProvBuscar = txtNombreProvBuscar;
+    }
+
+    public JButton getBtnAux() {
+        return btnAux;
+    }
+
+    public void setBtnAux(JButton btnAux) {
+        this.btnAux = btnAux;
+    }
+
+    public JButton getBtnGuardar() {
+        return btnGuardar;
+    }
+
+    public void setBtnGuardar(JButton btnGuardar) {
+        this.btnGuardar = btnGuardar;
+    }
+
+    public JButton getBtnListar() {
+        return btnListar;
+    }
+
+    public void setBtnListar(JButton btnListar) {
+        this.btnListar = btnListar;
+    }
+
+    public void guardar() {
+        this.getGestor().guardar();
+    }
+
+    public void eliminar() {
+        this.getGestor().eliminarProvincia();
+    }
+
+    public void imprimir() {
+        this.getGestor().imprimir();
+    }
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        this.getGestor().cerrar();
+    }//GEN-LAST:event_btnSalirActionPerformed
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        this.configBuscar();
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
+        this.configNuevo();
+    }//GEN-LAST:event_btnNuevoActionPerformed
+
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        this.guardar();
+    }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void btnListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarActionPerformed
+        this.getGestor().sinFiltro();
+    }//GEN-LAST:event_btnListarActionPerformed
+
+    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
+        this.getGestor().clearList();
+    }//GEN-LAST:event_btnLimpiarActionPerformed
+
+    private void btnAuxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAuxActionPerformed
+        this.getGestor().filtrar();
+    }//GEN-LAST:event_btnAuxActionPerformed
+
+    private void txtNombreProvBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreProvBuscarKeyReleased
+        this.getGestor().filtrar();
+    }//GEN-LAST:event_txtNombreProvBuscarKeyReleased
+
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+        this.configModificar();
+    }//GEN-LAST:event_btnModificarActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        this.eliminar();
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void chekNombreItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_chekNombreItemStateChanged
+        this.getGestor().configChekNombre();
+    }//GEN-LAST:event_chekNombreItemStateChanged
+
+    private void chekPaisItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_chekPaisItemStateChanged
+        this.getGestor().configChekPais();
+    }//GEN-LAST:event_chekPaisItemStateChanged
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        this.configCancelar();
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void btnNuevoPaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoPaisActionPerformed
+        this.getGestor().abrirFrmPais();
+    }//GEN-LAST:event_btnNuevoPaisActionPerformed
+
+    private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
+        this.imprimir();
+    }//GEN-LAST:event_btnImprimirActionPerformed
+
+    private void chekNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chekNombreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_chekNombreActionPerformed
+    public void configInicial() {
+        this.getTxtNombreProvBuscar().setEnabled(false);
+        this.getCmbPaisBuscar().setEnabled(false);
+        this.getBtnAux().setEnabled(false);
+        this.getChekNombre().setEnabled(false);
+        this.getChekPais().setEnabled(false);
+        this.getLista().setEnabled(false);
+        this.getBtnLimpiar().setEnabled(false);
+        this.getBtnListar().setEnabled(false);
+        this.getTxtNombre().setEnabled(false);
+        this.getCmbPais().setEnabled(false);
+        this.getBtnNuevoPais().setEnabled(false);
+        this.getBtnGuardar().setEnabled(false);
+        this.getBtnModificar().setEnabled(false);
+        this.getBtnEliminar().setEnabled(false);
+        this.getBtnCancelar().setEnabled(false);
+        this.getBtnNuevo().setEnabled(true);
+        this.getBtnBuscar().setEnabled(true);
+        this.getTxtNombre().setText("");
+        this.getTxtNombreProvBuscar().setText("");
+        this.getCmbPais().removeAllItems();
+        this.getCmbPaisBuscar().removeAllItems();
+        this.getChekNombre().setSelected(false);
+        this.getChekPais().setSelected(false);
+    }
+
+    public void configNuevo() {
+        this.getBtnBuscar().setEnabled(false);
+        this.getBtnNuevo().setEnabled(false);
+        this.getBtnGuardar().setEnabled(true);
+        this.getBtnCancelar().setEnabled(true);
+        this.getTxtNombre().setEnabled(true);
+        this.getCmbPais().setEnabled(true);
+        this.getBtnNuevoPais().setEnabled(true);
+        this.getBtnCancelar().setEnabled(true);
+        this.getTxtNombre().requestFocus();
+        this.getGestor().cargarComboPais();
+        this.getGestor().setNuevo();
+    }
+
+    public void configCancelar() {
+        this.configInicial();
+        this.limpiarLista();
+    }
+
+    public void configBuscar() {
+        this.getBtnNuevo().setEnabled(false);
+        this.getBtnBuscar().setEnabled(false);
+        this.getBtnModificar().setEnabled(true);
+        this.getBtnEliminar().setEnabled(true);
+        this.getChekNombre().setEnabled(true);
+        this.getChekPais().setEnabled(true);
+        this.getLista().setEnabled(true);
+        this.getBtnLimpiar().setEnabled(true);
+        this.getBtnListar().setEnabled(true);
+        this.getBtnCancelar().setEnabled(true);
+        this.getGestor().cargarComboPaisBuscar();
+    }
+
+    public void configModificar() {
+        this.getBtnGuardar().setEnabled(true);
+        this.getTxtNombre().setEnabled(true);
+        this.getCmbPais().setEnabled(true);
+        this.getBtnNuevoPais().setEnabled(true);
+        this.getTxtNombre().requestFocus();
+        this.getGestor().setModificar();
+        this.getGestor().accionModificar();
+        this.getGestor().cargarComboPais();
+    }
+
+    public void limpiarLista() {
+        this.getGestor().clearList();
+    }
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAux;
+    private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnEliminar;
+    private javax.swing.JButton btnGuardar;
+    private javax.swing.JButton btnImprimir;
+    private javax.swing.JButton btnLimpiar;
+    private javax.swing.JButton btnListar;
+    private javax.swing.JButton btnModificar;
+    private javax.swing.JButton btnNuevo;
+    private javax.swing.JButton btnNuevoPais;
+    private javax.swing.JButton btnSalir;
+    private javax.swing.JCheckBox chekNombre;
+    private javax.swing.JCheckBox chekPais;
+    private javax.swing.JComboBox cmbPais;
+    private javax.swing.JComboBox cmbPaisBuscar;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JList lista;
+    private javax.swing.JPanel panelBotones;
+    private javax.swing.JPanel panelCriterioBusqueda;
+    private javax.swing.JPanel panelDatosNuevaProvincia;
+    private javax.swing.JPanel panelMostrarProvincias;
+    private javax.swing.JPanel panelSalir;
+    private javax.swing.JTextField txtNombre;
+    private javax.swing.JTextField txtNombreProvBuscar;
+    // End of variables declaration//GEN-END:variables
+}

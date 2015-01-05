@@ -1,0 +1,102 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package Vistas.Profesional;
+
+import Model.Profesional.GestorProfesion;
+import Model.Profesional.GestorProfesionales;
+import Model.Profesional.Profesional;
+import Utilidades.GestorCombo;
+import Vistas.GestorVista;
+import java.util.List;
+import javax.swing.JComboBox;
+import javax.swing.JDesktopPane;
+import javax.swing.JOptionPane;
+
+/**
+ *
+ * @author Federico
+ */
+public class GestorVistaProfesional extends GestorVista {
+    
+    private GestorProfesionales gestorProf;
+ 
+            
+    public GestorVistaProfesional(JDesktopPane escritorio){
+        this.setEscritorio(escritorio);
+        this.setFrame(new FrmProfesional(this) );
+    }
+        public void abrir() {
+        this.getEscritorio().add(this.getFrame());
+        this.getFrame().setVisible(true);
+    }
+      private List buscarProfesiones(){
+          GestorProfesion gesprof = new GestorProfesion();
+          return gesprof.listarProfesion();
+      }
+     public void cargarComboProfesiones(JComboBox combito){
+         GestorCombo gescom = new GestorCombo();
+         gescom.cargarCombo(buscarProfesiones(), combito);
+         
+     }
+      private void crearGestor() {
+        this.setGestor(new GestorProfesionales());
+    }
+    public void setModel(Profesional model) {
+        this.gestorProf.setModel(model);
+    }
+
+    public Profesional getModel() {
+        return gestorProf.getModel();
+    }
+          public void crearModelo() {
+        this.setModel(new Profesional());
+    }
+
+    public GestorProfesionales getGestorProf() {
+        return gestorProf;
+    }
+
+    public void setGestorProf(GestorProfesionales gestorProf) {
+        this.gestorProf = gestorProf;
+    }
+        public FrmProfesional getFormularioEspecifico() {
+        return (FrmProfesional) this.getFrame();
+    }
+
+   public void guardar() {
+        if (this.comprobarCamposMinimos()) {
+            if (this.isNuevo()) {
+                this.crearGestor();
+                this.getGestorProf().crearModelo();
+                this.getModel().setNombre(getFormularioEspecifico().getNombrePersona());
+                this.getModel().setApellido(getFormularioEspecifico().getApellidoPers());
+              //  this.getModel().setDocumento(getFormularioEspecifico().getDNIPers());
+                this.getModel().setFechaNac(getFormularioEspecifico().getFechaNacPers());
+                this.getGestorProf().guardar(this.getModo());
+                this.getFormularioEspecifico().configInicial();
+            }
+        } else {
+                    JOptionPane.showMessageDialog(null, "Hay campos vacíos");
+//                this.getGestor().getModel().setNombre(this.getFormularioEspecifico().getTxtNombreNuevoPais().getText().trim().toLowerCase());
+//                this.getGestor().guardar(this.getModo());
+//                this.getFormularioEspecifico().configInicial();
+//                this.clearList();
+            
+
+        }
+
+    } 
+   
+   public boolean comprobarCamposMinimos() {
+       
+       FrmProfesional frmProf = (FrmProfesional)getFrame();
+       
+       return frmProf.comprobarMinimos();
+     }
+
+    public void setGestor(GestorProfesionales gestor) {
+        this.gestorProf = gestor;
+    }
+}

@@ -1,0 +1,134 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package Model.Ubicacion;
+
+import Hibernate.GestorDeReportes;
+import Hibernate.GestorHibernate;
+import Model.GestorConsultas;
+import Utilidades.Util;
+import java.util.List;
+import javax.swing.JOptionPane;
+
+/**
+ *
+ * @author Emiliano
+ */
+public class GestorProvincia extends GestorHibernate implements InterfazABM {
+
+    private Provincia model;
+
+    public GestorProvincia() {
+        this.setModel(new Provincia());
+    }
+
+    public Provincia getModel() {
+        return model;
+    }
+
+    public void setModel(Provincia model) {
+        this.model = model;
+    }
+
+    public void crearModelo() {
+        this.setModel(new Provincia());
+    }
+
+    @Override
+    public void guardar() {
+        try {
+            this.guardarObjeto(this.getModel());
+            new Util().getMensajeInformation("Provincia guardada con éxito");
+        } catch (Exception e) {
+            new Util().getMensajeError("Error: " + e);
+        }
+
+
+    }
+
+    public void procesar(int modo) {
+        switch (modo) {
+            case 0:
+                this.guardar();
+                break;
+            case 1:
+                this.actualizar();
+                new  Util().getMensajeInformation("Provincia actualizada con éxito");
+                break;
+            default:
+                break;
+        }
+    }
+
+    @Override
+    public void actualizar() {
+        try {
+            this.actualizarObjeto(this.getModel());
+            new Util().getMensajeInformation("Provincia actualizada con éxito");
+        } catch (Exception e) {
+            new Util().getMensajeError("Error: " + e);
+        }
+
+    }
+    public void actualizarExterno(){
+             try {
+            this.actualizarObjeto(this.getModel());
+        } catch (Exception e) {
+            new Util().getMensajeError("Error: " + e);
+        }
+    }
+    @Override
+    public void eliminar() {
+        try {
+            this.getModel().asEliminado();
+            this.actualizarObjeto(this.getModel());
+            new Util().getMensajeInformation("Provincia eliminada con éxito");
+        } catch (Exception e) {
+        }
+
+    }
+
+    public List listarProvincias() {
+        GestorConsultas gestor = new GestorConsultas(Provincia.class);
+        gestor.addOrdenAscendente("nombre");
+        return gestor.resultConsulta();
+    }
+
+    public List filtrarConb(Pais pais, String nombreFiltro) {
+        GestorConsultas gestor = new GestorConsultas(Provincia.class);
+        gestor.addFiltroPorObjeto("pais", pais);
+        gestor.addFiltro("nombre", nombreFiltro);
+        gestor.addOrdenAscendente("nombre");
+        return gestor.resultConsulta();
+    }
+
+    public List filtrarPais(Pais pais) {
+        GestorConsultas gestor = new GestorConsultas(Provincia.class);
+        gestor.addFiltroPorObjeto("pais", pais);
+        gestor.addOrdenAscendente("nombre");
+        return gestor.resultConsulta();
+    }
+
+    public List filtrarNombre(String nombre) {
+        GestorConsultas gestor = new GestorConsultas(Provincia.class);
+        gestor.addFiltro("nombre", nombre);
+        gestor.addOrdenAscendente("nombre");
+        return gestor.resultConsulta();
+
+    }
+
+    public void isRepetido() {
+        //Implementar
+    }
+
+    @Override
+    public void imprimir() {
+        try {
+            GestorImprimir gestor = new GestorImprimir(this.listarProvincias(), "Provincias", "provincias.jasper");
+            gestor.imprimir();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
+}

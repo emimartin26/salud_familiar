@@ -1,0 +1,62 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package Vistas.Paciente;
+
+import Vistas.GestorVista;
+import Vistas.InterfazFrm;
+import javax.swing.JDesktopPane;
+
+/**
+ *
+ * @author Federico
+ */
+public class GestorVistaHistoriaClinica extends GestorVista implements InterfazFrm{
+
+    private FrmHistoriaClinica historia;
+    private FrmPaciente frame;
+    
+    public void abrir() {
+        this.getEscritorio().add(this.getFrame());
+        this.getFrame().setVisible(true);
+    }
+    public GestorVistaHistoriaClinica(JDesktopPane escritorio){
+               this.setEscritorio(escritorio);
+        this.setFrame(new FrmHistoriaClinica(this));
+    
+    }
+
+    public void crearFrmHistoriaClinica() {
+        this.setHistoria(new FrmHistoriaClinica(this));
+    }
+
+    public void mostrarFrmHistoriaClinica() {
+        this.historia.setVisible(true);
+    }
+
+    public FrmHistoriaClinica getHistoria() {
+        return historia;
+    }
+
+    public void setHistoria(FrmHistoriaClinica historia) {
+        this.historia = historia;
+    }
+
+    public void abrirFrmHistoriaClinica(String apellido, String nombre) {
+        this.crearFrmHistoriaClinica();
+        this.mostrarFrmHistoriaClinica();
+        this.cargarDatosPaciente(apellido, nombre);
+        System.out.println(apellido+nombre);
+    }
+
+    public void cargarDatosPaciente(String apellido, String nombre) {
+        historia.getTxtApellido().setText(apellido);
+        historia.getTxtNombre().setText(nombre);
+    }
+
+    @Override
+    public void cerrar() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+}

@@ -1,0 +1,1297 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+/*
+ * FrmPaciente.java
+ *
+ * Created on 07-jun-2012, 13:29:58
+ */
+package Vistas.Paciente;
+
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+
+
+
+/**
+ *
+ * @author Lopez
+ */
+public class FrmPaciente extends javax.swing.JInternalFrame {
+
+    private GestorVistaPaciente gestor;
+
+    /**
+     * Creates new form FrmPaciente
+     */
+    public FrmPaciente() {
+        initComponents();
+    }
+
+    public FrmPaciente(GestorVistaPaciente gestor) {
+        initComponents();
+        this.setGestor(gestor);
+//        this.configInicial();
+    }
+
+    public GestorVistaPaciente getGestor() {
+        return gestor;
+    }
+
+    public void setGestor(GestorVistaPaciente gestor) {
+        this.gestor = gestor;
+    }
+
+    public JButton getBtnBuscar() {
+        return btnBuscar;
+    }
+
+    public void setBtnBuscar(JButton btnBuscar) {
+        this.btnBuscar = btnBuscar;
+    }
+
+    public JButton getBtnEliminar() {
+        return btnEliminar;
+    }
+
+    public void setBtnEliminar(JButton btnEliminar) {
+        this.btnEliminar = btnEliminar;
+    }
+
+    public JButton getBtnGuardar() {
+        return btnGuardar;
+    }
+
+    public void setBtnGuardar(JButton btnGuardar) {
+        this.btnGuardar = btnGuardar;
+    }
+
+    public JButton getBtnHistoriaClinica() {
+        return btnHistoriaClinica;
+    }
+
+    public void setBtnHistoriaClinica(JButton btnHistoriaClinica) {
+        this.btnHistoriaClinica = btnHistoriaClinica;
+    }
+
+    public JButton getBtnModificar() {
+        return btnModificar;
+    }
+
+    public void setBtnModificar(JButton btnModificar) {
+        this.btnModificar = btnModificar;
+    }
+
+    public JButton getBtnNuevo() {
+        return btnNuevo;
+    }
+
+    public void setBtnNuevo(JButton btnNuevo) {
+        this.btnNuevo = btnNuevo;
+    }
+
+    public JButton getBtnRegistrarEnfermedades() {
+        return btnRegistrarEnfermedades;
+    }
+
+    public void setBtnRegistrarEnfermedades(JButton btnRegistrarEnfermedades) {
+        this.btnRegistrarEnfermedades = btnRegistrarEnfermedades;
+    }
+
+    public JComboBox getCmbLocalidad() {
+        return cmbLocalidad;
+    }
+
+    public void setCmbLocalidad(JComboBox cmbLocalidad) {
+        this.cmbLocalidad = cmbLocalidad;
+    }
+
+    public JComboBox getCmbProvincia() {
+        return cmbProvincia;
+    }
+
+    public void setCmbProvincia(JComboBox cmbProvincia) {
+        this.cmbProvincia = cmbProvincia;
+    }
+
+    public JComboBox getCmbTipoDni() {
+        return cmbTipoDni;
+    }
+
+    public void setCmbTipoDni(JComboBox cmbTipoDni) {
+        this.cmbTipoDni = cmbTipoDni;
+    }
+
+    public JComboBox getCmbTipoDniBusqueda() {
+        return cmbTipoDniBusqueda;
+    }
+
+    public void setCmbTipoDniBusqueda(JComboBox cmbTipoDniBusqueda) {
+        this.cmbTipoDniBusqueda = cmbTipoDniBusqueda;
+    }
+
+    public JPanel getjPanel6() {
+        return jPanel6;
+    }
+
+    public void setjPanel6(JPanel jPanel6) {
+        this.jPanel6 = jPanel6;
+    }
+
+    public JScrollPane getjScrollPane1() {
+        return jScrollPane1;
+    }
+
+    public void setjScrollPane1(JScrollPane jScrollPane1) {
+        this.jScrollPane1 = jScrollPane1;
+    }
+
+    public JPanel getPanelBotones() {
+        return panelBotones;
+    }
+
+    public void setPanelBotones(JPanel panelBotones) {
+        this.panelBotones = panelBotones;
+    }
+
+    public JPanel getPnlBusquedaPaciente() {
+        return pnlBusquedaPaciente;
+    }
+
+    public void setPnlBusquedaPaciente(JPanel pnlBusquedaPaciente) {
+        this.pnlBusquedaPaciente = pnlBusquedaPaciente;
+    }
+
+    public JPanel getPnlDatosLocalidad() {
+        return pnlDatosLocalidad;
+    }
+
+    public void setPnlDatosLocalidad(JPanel pnlDatosLocalidad) {
+        this.pnlDatosLocalidad = pnlDatosLocalidad;
+    }
+
+    public JPanel getPnlDatosPersonales() {
+        return pnlDatosPersonales;
+    }
+
+    public void setPnlDatosPersonales(JPanel pnlDatosPersonales) {
+        this.pnlDatosPersonales = pnlDatosPersonales;
+    }
+
+    public JRadioButton getRbtnApellidoBusqueda() {
+        return rbtnApellidoBusqueda;
+    }
+
+    public void setRbtnApellidoBusqueda(JRadioButton rbtnApellidoBusqueda) {
+        this.rbtnApellidoBusqueda = rbtnApellidoBusqueda;
+    }
+
+    public JRadioButton getRbtnDniBusqueda() {
+        return rbtnDniBusqueda;
+    }
+
+    public void setRbtnDniBusqueda(JRadioButton rbtnDniBusqueda) {
+        this.rbtnDniBusqueda = rbtnDniBusqueda;
+    }
+
+    public JRadioButton getRbtnNombreBusqueda() {
+        return rbtnNombreBusqueda;
+    }
+
+    public void setRbtnNombreBusqueda(JRadioButton rbtnNombreBusqueda) {
+        this.rbtnNombreBusqueda = rbtnNombreBusqueda;
+    }
+
+    public JTable getTblBusqueda() {
+        return tblBusqueda;
+    }
+
+    public void setTblBusqueda(JTable tblBusqueda) {
+        this.tblBusqueda = tblBusqueda;
+    }
+
+    public JTextField getTxtAlturaCalle() {
+        return txtAlturaCalle;
+    }
+
+    public void setTxtAlturaCalle(JTextField txtAlturaCalle) {
+        this.txtAlturaCalle = txtAlturaCalle;
+    }
+
+    public JTextField getTxtApellido() {
+        return txtApellido;
+    }
+
+    public void setTxtApellido(JTextField txtApellido) {
+        this.txtApellido = txtApellido;
+    }
+
+    public JTextField getTxtApellidoBusqueda() {
+        return txtApellidoBusqueda;
+    }
+
+    public void setTxtApellidoBusqueda(JTextField txtApellidoBusqueda) {
+        this.txtApellidoBusqueda = txtApellidoBusqueda;
+    }
+
+    public JTextField getTxtCalle() {
+        return txtCalle;
+    }
+
+    public void setTxtCalle(JTextField txtCalle) {
+        this.txtCalle = txtCalle;
+    }
+
+    public JTextField getTxtDni() {
+        return txtDni;
+    }
+
+    public void setTxtDni(JTextField txtDni) {
+        this.txtDni = txtDni;
+    }
+
+    public JTextField getTxtDniBusqueda() {
+        return txtDniBusqueda;
+    }
+
+    public void setTxtDniBusqueda(JTextField txtDniBusqueda) {
+        this.txtDniBusqueda = txtDniBusqueda;
+    }
+
+    public JTextField getTxtNombre() {
+        return txtNombre;
+    }
+
+    public void setTxtNombre(JTextField txtNombre) {
+        this.txtNombre = txtNombre;
+    }
+
+    public JTextField getTxtNombreBusqueda() {
+        return txtNombreBusqueda;
+    }
+
+    public void setTxtNombreBusqueda(JTextField txtNombreBusqueda) {
+        this.txtNombreBusqueda = txtNombreBusqueda;
+    }
+
+    public JButton getBtnLimpiar() {
+        return btnLimpiar;
+    }
+
+    public void setBtnLimpiar(JButton btnLimpiar) {
+        this.btnLimpiar = btnLimpiar;
+    }
+
+    public JButton getBtnListar() {
+        return btnListar;
+    }
+
+    public void setBtnListar(JButton btnListar) {
+        this.btnListar = btnListar;
+    }
+
+    public JButton getBtnCancelar() {
+        return btnCancelar;
+    }
+
+    public void setBtnCancelar(JButton btnCancelar) {
+        this.btnCancelar = btnCancelar;
+    }
+
+    public JButton getBtnImprimir() {
+        return btnImprimir;
+    }
+
+    public void setBtnImprimir(JButton btnImprimir) {
+        this.btnImprimir = btnImprimir;
+    }
+
+    public JButton getBtnSalir() {
+        return btnSalir;
+    }
+
+    public void setBtnSalir(JButton btnSalir) {
+        this.btnSalir = btnSalir;
+    }
+
+    public JButton getBtnNuevoCelular() {
+        return btnNuevoCelular;
+    }
+
+    public void setBtnNuevoCelular(JButton btnNuevoCelular) {
+        this.btnNuevoCelular = btnNuevoCelular;
+    }
+
+    public JButton getBtnNuevoTelefono() {
+        return btnNuevoTelefono;
+    }
+
+    public void setBtnNuevoTelefono(JButton btnNuevoTelefono) {
+        this.btnNuevoTelefono = btnNuevoTelefono;
+    }
+
+    public JList getLstNumerosCelular() {
+        return lstNumerosCelular;
+    }
+
+    public void setLstNumerosCelular(JList lstNumerosCelular) {
+        this.lstNumerosCelular = lstNumerosCelular;
+    }
+
+    public JList getLstNumerosTelefono() {
+        return lstNumerosTelefono;
+    }
+
+    public void setLstNumerosTelefono(JList lstNumerosTelefono) {
+        this.lstNumerosTelefono = lstNumerosTelefono;
+    }
+
+    public JTextField getTxtCaracCelular() {
+        return txtCaracCelular;
+    }
+
+    public void setTxtCaracCelular(JTextField txtCaracCelular) {
+        this.txtCaracCelular = txtCaracCelular;
+    }
+
+    public JTextField getTxtCaractTelefono() {
+        return txtCaractTelefono;
+    }
+
+    public void setTxtCaractTelefono(JTextField txtCaractTelefono) {
+        this.txtCaractTelefono = txtCaractTelefono;
+    }
+
+    public JTextField getTxtNumCelular() {
+        return txtNumCelular;
+    }
+
+    public void setTxtNumCelular(JTextField txtNumCelular) {
+        this.txtNumCelular = txtNumCelular;
+    }
+
+    public JTextField getTxtNumDepto() {
+        return txtNumDepto;
+    }
+
+    public void setTxtNumDepto(JTextField txtNumDepto) {
+        this.txtNumDepto = txtNumDepto;
+    }
+
+    public JTextField getTxtNumTelefono() {
+        return txtNumTelefono;
+    }
+
+    public void setTxtNumTelefono(JTextField txtNumTelefono) {
+        this.txtNumTelefono = txtNumTelefono;
+    }
+
+    public JTextField getTxtPisoDepto() {
+        return txtPisoDepto;
+    }
+
+    public void setTxtPisoDepto(JTextField txtPisoDepto) {
+        this.txtPisoDepto = txtPisoDepto;
+    }
+    
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        panelBotones = new javax.swing.JPanel();
+        btnEliminar = new javax.swing.JButton();
+        btnModificar = new javax.swing.JButton();
+        btnBuscar = new javax.swing.JButton();
+        btnNuevo = new javax.swing.JButton();
+        btnGuardar = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
+        btnImprimir = new javax.swing.JButton();
+        jPanel6 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblBusqueda = new javax.swing.JTable();
+        pnlBusquedaPaciente = new javax.swing.JPanel();
+        rbtnApellidoBusqueda = new javax.swing.JRadioButton();
+        txtApellidoBusqueda = new javax.swing.JTextField();
+        rbtnDniBusqueda = new javax.swing.JRadioButton();
+        cmbTipoDniBusqueda = new javax.swing.JComboBox();
+        txtNombreBusqueda = new javax.swing.JTextField();
+        rbtnNombreBusqueda = new javax.swing.JRadioButton();
+        txtDniBusqueda = new javax.swing.JTextField();
+        btnHistoriaClinica = new javax.swing.JButton();
+        btnLimpiar = new javax.swing.JButton();
+        btnListar = new javax.swing.JButton();
+        pnlNuevoPaciente1 = new javax.swing.JPanel();
+        pnlDatosTelefonicos = new javax.swing.JPanel();
+        txtCaracCelular = new javax.swing.JTextField();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        lstNumerosTelefono = new javax.swing.JList();
+        jLabel69 = new javax.swing.JLabel();
+        txtNumCelular = new javax.swing.JTextField();
+        jLabel70 = new javax.swing.JLabel();
+        jLabel71 = new javax.swing.JLabel();
+        txtNumTelefono = new javax.swing.JTextField();
+        jLabel72 = new javax.swing.JLabel();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        lstNumerosCelular = new javax.swing.JList();
+        txtCaractTelefono = new javax.swing.JTextField();
+        btnNuevoTelefono = new javax.swing.JButton();
+        btnNuevoCelular = new javax.swing.JButton();
+        pnlDatosPersonales = new javax.swing.JPanel();
+        jLabel51 = new javax.swing.JLabel();
+        jLabel46 = new javax.swing.JLabel();
+        cmbTipoDni = new javax.swing.JComboBox();
+        txtNombre = new javax.swing.JTextField();
+        txtDni = new javax.swing.JTextField();
+        jLabel45 = new javax.swing.JLabel();
+        jLabel44 = new javax.swing.JLabel();
+        txtApellido = new javax.swing.JTextField();
+        pnlDatosLocalidad = new javax.swing.JPanel();
+        jLabel52 = new javax.swing.JLabel();
+        txtNumDepto = new javax.swing.JTextField();
+        jLabel53 = new javax.swing.JLabel();
+        jLabel56 = new javax.swing.JLabel();
+        txtPisoDepto = new javax.swing.JTextField();
+        jLabel54 = new javax.swing.JLabel();
+        jLabel57 = new javax.swing.JLabel();
+        txtAlturaCalle = new javax.swing.JTextField();
+        cmbProvincia = new javax.swing.JComboBox();
+        txtCalle = new javax.swing.JTextField();
+        jLabel55 = new javax.swing.JLabel();
+        cmbLocalidad = new javax.swing.JComboBox();
+        btnRegistrarEnfermedades = new javax.swing.JButton();
+        btnSalir = new javax.swing.JButton();
+
+        panelBotones.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+
+        btnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/eliminar.png"))); // NOI18N
+        btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
+
+        btnModificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/modificar.png"))); // NOI18N
+        btnModificar.setText("Modificar");
+        btnModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarActionPerformed(evt);
+            }
+        });
+
+        btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/Buscar.png"))); // NOI18N
+        btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
+
+        btnNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/accept.png"))); // NOI18N
+        btnNuevo.setText("Nuevo");
+        btnNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevoActionPerformed(evt);
+            }
+        });
+
+        btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/guardar.png"))); // NOI18N
+        btnGuardar.setText("Guardar");
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
+
+        btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/cancelar.png"))); // NOI18N
+        btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
+
+        btnImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/impresora.png"))); // NOI18N
+        btnImprimir.setText("Imprimir");
+        btnImprimir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnImprimirActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panelBotonesLayout = new javax.swing.GroupLayout(panelBotones);
+        panelBotones.setLayout(panelBotonesLayout);
+        panelBotonesLayout.setHorizontalGroup(
+            panelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelBotonesLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnNuevo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnBuscar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnGuardar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnEliminar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        panelBotonesLayout.setVerticalGroup(
+            panelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelBotonesLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(panelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnEliminar)
+                    .addComponent(btnModificar)
+                    .addComponent(btnBuscar)
+                    .addComponent(btnNuevo)
+                    .addComponent(btnGuardar)
+                    .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnImprimir, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
+
+        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder("Búsqueda"));
+
+        tblBusqueda.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
+            },
+            new String [] {
+                "Nombres", "Apellidos", "DNI", "Localidad", "N° Teléfono", "N° Celular"
+            }
+        ));
+        jScrollPane1.setViewportView(tblBusqueda);
+
+        pnlBusquedaPaciente.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        rbtnApellidoBusqueda.setText("Por Apellido");
+        rbtnApellidoBusqueda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtnApellidoBusquedaActionPerformed(evt);
+            }
+        });
+
+        txtApellidoBusqueda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtApellidoBusquedaActionPerformed(evt);
+            }
+        });
+
+        rbtnDniBusqueda.setText("Por DNI");
+
+        cmbTipoDniBusqueda.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        rbtnNombreBusqueda.setText("Por Nombre");
+        rbtnNombreBusqueda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtnNombreBusquedaActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout pnlBusquedaPacienteLayout = new javax.swing.GroupLayout(pnlBusquedaPaciente);
+        pnlBusquedaPaciente.setLayout(pnlBusquedaPacienteLayout);
+        pnlBusquedaPacienteLayout.setHorizontalGroup(
+            pnlBusquedaPacienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlBusquedaPacienteLayout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addGroup(pnlBusquedaPacienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(rbtnNombreBusqueda)
+                    .addComponent(rbtnApellidoBusqueda)
+                    .addComponent(rbtnDniBusqueda))
+                .addGap(18, 18, 18)
+                .addGroup(pnlBusquedaPacienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtApellidoBusqueda)
+                    .addComponent(txtNombreBusqueda)
+                    .addGroup(pnlBusquedaPacienteLayout.createSequentialGroup()
+                        .addComponent(cmbTipoDniBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtDniBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        pnlBusquedaPacienteLayout.setVerticalGroup(
+            pnlBusquedaPacienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlBusquedaPacienteLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlBusquedaPacienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(rbtnApellidoBusqueda)
+                    .addComponent(txtApellidoBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlBusquedaPacienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(rbtnNombreBusqueda)
+                    .addComponent(txtNombreBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlBusquedaPacienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(rbtnDniBusqueda)
+                    .addComponent(cmbTipoDniBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtDniBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        btnHistoriaClinica.setText("Historia Clínica");
+        btnHistoriaClinica.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHistoriaClinicaActionPerformed(evt);
+            }
+        });
+
+        btnLimpiar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/limpiar.png"))); // NOI18N
+        btnLimpiar.setText("Limpiar");
+
+        btnListar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/listar.png"))); // NOI18N
+        btnListar.setText("Listar Completo");
+        btnListar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnListarActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(pnlBusquedaPaciente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 475, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                        .addComponent(btnLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnListar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnHistoriaClinica)))
+                .addContainerGap())
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGap(4, 4, 4)
+                .addComponent(pnlBusquedaPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 283, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnHistoriaClinica)
+                        .addComponent(btnListar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnLimpiar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+
+        pnlNuevoPaciente1.setBorder(javax.swing.BorderFactory.createTitledBorder("Nuevo Paciente"));
+
+        pnlDatosTelefonicos.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos Telefónicos"));
+
+        lstNumerosTelefono.setModel(new javax.swing.AbstractListModel() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public Object getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane6.setViewportView(lstNumerosTelefono);
+
+        jLabel69.setText("-");
+
+        jLabel70.setText("N° Celular");
+
+        jLabel71.setText("-");
+
+        txtNumTelefono.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNumTelefonotxtNumTelActionPerformed(evt);
+            }
+        });
+
+        jLabel72.setText("N° Teléfono");
+
+        lstNumerosCelular.setModel(new javax.swing.AbstractListModel() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public Object getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane7.setViewportView(lstNumerosCelular);
+
+        btnNuevoTelefono.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/mas.png"))); // NOI18N
+
+        btnNuevoCelular.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/mas.png"))); // NOI18N
+
+        javax.swing.GroupLayout pnlDatosTelefonicosLayout = new javax.swing.GroupLayout(pnlDatosTelefonicos);
+        pnlDatosTelefonicos.setLayout(pnlDatosTelefonicosLayout);
+        pnlDatosTelefonicosLayout.setHorizontalGroup(
+            pnlDatosTelefonicosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlDatosTelefonicosLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlDatosTelefonicosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(pnlDatosTelefonicosLayout.createSequentialGroup()
+                        .addGroup(pnlDatosTelefonicosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel72)
+                            .addComponent(jLabel70, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(pnlDatosTelefonicosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtCaracCelular)
+                            .addComponent(btnNuevoTelefono, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtCaractTelefono, javax.swing.GroupLayout.DEFAULT_SIZE, 47, Short.MAX_VALUE)))
+                    .addComponent(btnNuevoCelular, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlDatosTelefonicosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlDatosTelefonicosLayout.createSequentialGroup()
+                        .addComponent(jLabel71)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(pnlDatosTelefonicosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane6)
+                            .addComponent(txtNumTelefono)))
+                    .addGroup(pnlDatosTelefonicosLayout.createSequentialGroup()
+                        .addComponent(jLabel69)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(pnlDatosTelefonicosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane7)
+                            .addComponent(txtNumCelular))))
+                .addContainerGap())
+        );
+        pnlDatosTelefonicosLayout.setVerticalGroup(
+            pnlDatosTelefonicosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlDatosTelefonicosLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlDatosTelefonicosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel72)
+                    .addComponent(txtCaractTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel71)
+                    .addComponent(txtNumTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlDatosTelefonicosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnNuevoTelefono, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 20, Short.MAX_VALUE)
+                    .addComponent(jScrollPane6, javax.swing.GroupLayout.Alignment.TRAILING, 0, 0, Short.MAX_VALUE))
+                .addGap(14, 14, 14)
+                .addGroup(pnlDatosTelefonicosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel70)
+                    .addComponent(txtCaracCelular, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel69)
+                    .addComponent(txtNumCelular, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(7, 7, 7)
+                .addGroup(pnlDatosTelefonicosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane7, 0, 0, Short.MAX_VALUE)
+                    .addComponent(btnNuevoCelular, javax.swing.GroupLayout.PREFERRED_SIZE, 20, Short.MAX_VALUE))
+                .addContainerGap(14, Short.MAX_VALUE))
+        );
+
+        pnlDatosPersonales.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder("Datos Personales")), "Datos Personales "));
+
+        jLabel51.setText("Tipo Documento");
+
+        jLabel46.setText("N°");
+
+        cmbTipoDni.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jLabel45.setText("Nombres");
+
+        jLabel44.setText("Apellidos");
+
+        javax.swing.GroupLayout pnlDatosPersonalesLayout = new javax.swing.GroupLayout(pnlDatosPersonales);
+        pnlDatosPersonales.setLayout(pnlDatosPersonalesLayout);
+        pnlDatosPersonalesLayout.setHorizontalGroup(
+            pnlDatosPersonalesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlDatosPersonalesLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlDatosPersonalesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlDatosPersonalesLayout.createSequentialGroup()
+                        .addComponent(jLabel51)
+                        .addGap(18, 18, 18)
+                        .addComponent(cmbTipoDni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel46)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtDni))
+                    .addGroup(pnlDatosPersonalesLayout.createSequentialGroup()
+                        .addComponent(jLabel44)
+                        .addGap(10, 10, 10)
+                        .addComponent(txtApellido))
+                    .addGroup(pnlDatosPersonalesLayout.createSequentialGroup()
+                        .addComponent(jLabel45)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtNombre)))
+                .addGap(14, 14, 14))
+        );
+        pnlDatosPersonalesLayout.setVerticalGroup(
+            pnlDatosPersonalesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlDatosPersonalesLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlDatosPersonalesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel44)
+                    .addComponent(txtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(pnlDatosPersonalesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel45))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlDatosPersonalesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel51)
+                    .addComponent(cmbTipoDni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel46)
+                    .addComponent(txtDni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        pnlDatosLocalidad.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos Localidad "));
+
+        jLabel52.setText("N° Depto");
+
+        jLabel53.setText("Piso");
+
+        jLabel56.setText("Provincia");
+
+        jLabel54.setText("Altura");
+
+        jLabel57.setText("Localidad");
+
+        cmbProvincia.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jLabel55.setText("Calle");
+
+        cmbLocalidad.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        javax.swing.GroupLayout pnlDatosLocalidadLayout = new javax.swing.GroupLayout(pnlDatosLocalidad);
+        pnlDatosLocalidad.setLayout(pnlDatosLocalidadLayout);
+        pnlDatosLocalidadLayout.setHorizontalGroup(
+            pnlDatosLocalidadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlDatosLocalidadLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlDatosLocalidadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel56)
+                    .addComponent(jLabel55)
+                    .addComponent(jLabel54))
+                .addGap(10, 10, 10)
+                .addGroup(pnlDatosLocalidadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtCalle)
+                    .addGroup(pnlDatosLocalidadLayout.createSequentialGroup()
+                        .addComponent(cmbProvincia, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel57, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(cmbLocalidad, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(pnlDatosLocalidadLayout.createSequentialGroup()
+                        .addComponent(txtAlturaCalle, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
+                        .addComponent(jLabel53)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtPisoDepto, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                        .addComponent(jLabel52)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtNumDepto, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+        );
+        pnlDatosLocalidadLayout.setVerticalGroup(
+            pnlDatosLocalidadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlDatosLocalidadLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlDatosLocalidadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel56)
+                    .addComponent(cmbProvincia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmbLocalidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel57))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlDatosLocalidadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel55)
+                    .addComponent(txtCalle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(pnlDatosLocalidadLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel54)
+                    .addComponent(txtAlturaCalle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel53)
+                    .addComponent(txtPisoDepto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel52)
+                    .addComponent(txtNumDepto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        btnRegistrarEnfermedades.setText("Registrar Enfermedades");
+        btnRegistrarEnfermedades.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegistrarEnfermedadesActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout pnlNuevoPaciente1Layout = new javax.swing.GroupLayout(pnlNuevoPaciente1);
+        pnlNuevoPaciente1.setLayout(pnlNuevoPaciente1Layout);
+        pnlNuevoPaciente1Layout.setHorizontalGroup(
+            pnlNuevoPaciente1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlNuevoPaciente1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlNuevoPaciente1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(pnlDatosTelefonicos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(pnlDatosLocalidad, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(pnlDatosPersonales, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlNuevoPaciente1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnRegistrarEnfermedades)
+                .addContainerGap())
+        );
+        pnlNuevoPaciente1Layout.setVerticalGroup(
+            pnlNuevoPaciente1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlNuevoPaciente1Layout.createSequentialGroup()
+                .addComponent(pnlDatosPersonales, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(pnlDatosTelefonicos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(pnlDatosLocalidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnRegistrarEnfermedades)
+                .addContainerGap())
+        );
+
+        btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/salir.png"))); // NOI18N
+        btnSalir.setText("Salir");
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(pnlNuevoPaciente1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(60, 60, 60)
+                        .addComponent(panelBotones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(pnlNuevoPaciente1, javax.swing.GroupLayout.PREFERRED_SIZE, 468, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(panelBotones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(15, Short.MAX_VALUE))
+        );
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void rbtnNombreBusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnNombreBusquedaActionPerformed
+//         TODO add your handling code here:
+    }//GEN-LAST:event_rbtnNombreBusquedaActionPerformed
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        this.configBuscar();
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
+        this.configNuevo();
+    }//GEN-LAST:event_btnNuevoActionPerformed
+
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+//        this.guardar()
+    }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void rbtnApellidoBusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnApellidoBusquedaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rbtnApellidoBusquedaActionPerformed
+
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+//      this.configModificar();
+    }//GEN-LAST:event_btnModificarActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void txtApellidoBusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtApellidoBusquedaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtApellidoBusquedaActionPerformed
+
+    private void btnListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarActionPerformed
+//        this.listar();
+    }//GEN-LAST:event_btnListarActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+//        this.configCancelar();
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void btnHistoriaClinicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHistoriaClinicaActionPerformed
+//        gestor.abrirFrmHistoria();
+    }//GEN-LAST:event_btnHistoriaClinicaActionPerformed
+
+    private void btnRegistrarEnfermedadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarEnfermedadesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnRegistrarEnfermedadesActionPerformed
+
+    private void txtNumTelefonotxtNumTelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNumTelefonotxtNumTelActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNumTelefonotxtNumTelActionPerformed
+
+    private void btnImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirActionPerformed
+//        this.imprimir();
+    }//GEN-LAST:event_btnImprimirActionPerformed
+
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        this.getGestor().cerrar();
+    }//GEN-LAST:event_btnSalirActionPerformed
+
+    public void setConfigBtnInicial() {
+        //configuracion para botones modif/nuevo/cancelar/etc..
+        this.getBtnNuevo().setEnabled(true);
+        this.getBtnBuscar().setEnabled(true);
+        this.getBtnEliminar().setEnabled(false);
+        this.getBtnGuardar().setEnabled(false);
+        this.getBtnModificar().setEnabled(false);
+        this.getBtnCancelar().setEnabled(false);
+        //configuracion para panel de busqueda
+        this.getBtnLimpiar().setEnabled(false);
+        this.getBtnListar().setEnabled(false);
+        this.getTxtApellidoBusqueda().setEnabled(false);
+        this.getTxtNombreBusqueda().setEnabled(false);
+        this.getTblBusqueda().setEnabled(true);
+        this.getTxtDniBusqueda().setEnabled(false);
+        this.getCmbTipoDniBusqueda().setEnabled(false);
+        this.getBtnHistoriaClinica().setEnabled(false);
+        this.getRbtnApellidoBusqueda().setEnabled(false);
+        this.getRbtnDniBusqueda().setEnabled(false);
+        this.getRbtnNombreBusqueda().setEnabled(false);
+//        //configuracion para nuevos pacientes y parientes
+        this.getTxtApellido().setEnabled(false);
+        this.getTxtNombre().setEnabled(false);
+        this.getCmbTipoDni().setEnabled(false);
+        this.getTxtCaractTelefono().setEnabled(false);
+        this.getTxtNumTelefono().setEnabled(false);
+        this.getTxtCaracCelular().setEnabled(false);
+        this.getTxtNumCelular().setEnabled(false);
+        this.getLstNumerosTelefono().setEnabled(false);
+        this.getLstNumerosCelular().setEnabled(false);
+        this.getCmbProvincia().setEnabled(false);
+        this.getCmbLocalidad().setEnabled(false);
+        this.getTxtCalle().setEnabled(false);
+        this.getTxtAlturaCalle().setEnabled(false);
+        this.getTxtPisoDepto().setEnabled(false);
+        this.getTxtNumDepto().setEnabled(false);
+        this.getBtnRegistrarEnfermedades().setEnabled(false);
+        this.getTxtDni().setEnabled(false);
+    }
+
+    public void limpiarTxt() {
+        this.getTxtNombre().setText("");
+        this.getTxtApellido().setText("");
+        this.getTxtAlturaCalle().setText("");
+        this.getTxtApellidoBusqueda().setText("");
+        this.getTxtCalle().setText("");
+        this.getTxtCaracCelular().setText("");
+        this.getTxtCaractTelefono().setText("");
+        this.getTxtDni().setText("");
+        this.getTxtDniBusqueda().setText("");
+        this.getTxtNombreBusqueda().setText("");
+        this.getTxtNumCelular().setText("");
+        this.getTxtNumDepto().setText("");
+        this.getTxtNumTelefono().setText("");
+        this.getTxtPisoDepto().setText("");
+    }
+
+    public void configInicial() {
+        this.setConfigBtnInicial();
+        this.limpiarTxt();
+    }
+
+    public void setConfigBtnNuevo() {
+        this.getTxtNombre().setEnabled(true);
+        this.getTxtAlturaCalle().setEnabled(true);
+        this.getTxtApellido().setEnabled(true);
+        this.getTxtCalle().setEnabled(true);
+        this.getTxtCaracCelular().setEnabled(true);
+        this.getTxtCaractTelefono().setEnabled(true);
+        this.getTxtDni().setEnabled(true);
+        this.getTxtNumCelular().setEnabled(true);
+        this.getTxtNumDepto().setEnabled(true);
+        this.getTxtNumTelefono().setEnabled(true);
+        this.getTxtPisoDepto().setEnabled(true);
+        this.getBtnGuardar().setEnabled(true);
+        this.getBtnNuevo().setEnabled(false);
+        this.getBtnBuscar().setEnabled(false);
+        this.getBtnCancelar().setEnabled(true);
+        this.getCmbLocalidad().setEnabled(true);
+        this.getCmbProvincia().setEnabled(true);
+        this.getCmbTipoDni().setEnabled(true);
+        this.getCmbTipoDniBusqueda().setEnabled(false);
+        this.getBtnHistoriaClinica().setEnabled(false);
+        this.getRbtnApellidoBusqueda().setEnabled(false);
+        this.getRbtnDniBusqueda().setEnabled(false);
+        this.getRbtnNombreBusqueda().setEnabled(false);
+        this.getTxtApellidoBusqueda().setEnabled(false);
+        this.getTxtDniBusqueda().setEnabled(false);
+        this.getTxtNombreBusqueda().setEnabled(false);
+    }
+
+    public void configNuevo() {
+        this.setConfigBtnNuevo();
+        this.getGestor().setNuevo();
+        this.getTxtNombre().requestFocus();
+    }
+
+    public void setConfigBtnBuscar() {
+// textos de la busqueda
+        this.getCmbTipoDniBusqueda().setEnabled(true);
+        this.getBtnHistoriaClinica().setEnabled(true);
+        this.getRbtnApellidoBusqueda().setEnabled(true);
+        this.getRbtnDniBusqueda().setEnabled(true);
+        this.getRbtnNombreBusqueda().setEnabled(true);
+        this.getTxtApellidoBusqueda().setEnabled(true);
+        this.getTxtDniBusqueda().setEnabled(true);
+        this.getTblBusqueda().setEnabled(true);
+// textos de registro de nuevos pacientes
+        this.getTxtNombre().setEnabled(false);
+        this.getTxtAlturaCalle().setEnabled(false);
+        this.getTxtApellido().setEnabled(false);
+        this.getTxtCalle().setEnabled(false);
+        this.getTxtCaracCelular().setEnabled(false);
+        this.getTxtCaractTelefono().setEnabled(false);
+        this.getTxtDni().setEnabled(false);
+        this.getTxtNumCelular().setEnabled(false);
+        this.getTxtNumDepto().setEnabled(false);
+        this.getTxtNumTelefono().setEnabled(false);
+        this.getTxtPisoDepto().setEnabled(false);
+        this.getCmbLocalidad().setEnabled(false);
+        this.getCmbProvincia().setEnabled(false);
+        this.getCmbTipoDni().setEnabled(false);
+//botones    
+        this.getBtnNuevo().setEnabled(false);
+        this.getBtnBuscar().setEnabled(false);
+        this.getBtnCancelar().setEnabled(true);
+        this.getBtnListar().setEnabled(true);
+    }
+
+    public void configBuscar() {
+        this.setConfigBtnBuscar();
+        this.getTxtNombreBusqueda().requestFocus();
+    }
+
+    public void configCancelar() {
+        this.configInicial();
+//        this.limpiarLista();
+        this.limpiarTxt();
+    }
+
+//------------------------
+
+
+//    public void setConfigBtnListar() {
+//        this.getBtnModificar().setEnabled(false);
+//        this.getBtnEliminar().setEnabled(false);
+//        this.getBtnLimpiar().setEnabled(false);
+//    }
+//
+//    public void setConfigBtnFiltrar(Boolean b) {
+//        this.getBtnLimpiar().setEnabled(b);
+//        this.getBtnModificar().setEnabled(b);
+//        this.getBtnEliminar().setEnabled(b);
+//    }
+//    
+//    public void configModificar() {
+//        this.getGestor().setModificar();
+//        this.getGestor().accionModificar();
+//        this.getTxtNombreNuevoPais().requestFocus();
+//    }
+//
+//
+//    public void configListar() {
+//        this.limpiarLista();
+//        this.getTxtNombrePaisBuscar().setText("");
+//        this.setConfigBtnListar();
+//        this.getTxtNombrePaisBuscar().requestFocus();
+//
+//    }
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnEliminar;
+    private javax.swing.JButton btnGuardar;
+    private javax.swing.JButton btnHistoriaClinica;
+    private javax.swing.JButton btnImprimir;
+    private javax.swing.JButton btnLimpiar;
+    private javax.swing.JButton btnListar;
+    private javax.swing.JButton btnModificar;
+    private javax.swing.JButton btnNuevo;
+    private javax.swing.JButton btnNuevoCelular;
+    private javax.swing.JButton btnNuevoTelefono;
+    private javax.swing.JButton btnRegistrarEnfermedades;
+    private javax.swing.JButton btnSalir;
+    private javax.swing.JComboBox cmbLocalidad;
+    private javax.swing.JComboBox cmbProvincia;
+    private javax.swing.JComboBox cmbTipoDni;
+    private javax.swing.JComboBox cmbTipoDniBusqueda;
+    private javax.swing.JLabel jLabel44;
+    private javax.swing.JLabel jLabel45;
+    private javax.swing.JLabel jLabel46;
+    private javax.swing.JLabel jLabel51;
+    private javax.swing.JLabel jLabel52;
+    private javax.swing.JLabel jLabel53;
+    private javax.swing.JLabel jLabel54;
+    private javax.swing.JLabel jLabel55;
+    private javax.swing.JLabel jLabel56;
+    private javax.swing.JLabel jLabel57;
+    private javax.swing.JLabel jLabel69;
+    private javax.swing.JLabel jLabel70;
+    private javax.swing.JLabel jLabel71;
+    private javax.swing.JLabel jLabel72;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane7;
+    private javax.swing.JList lstNumerosCelular;
+    private javax.swing.JList lstNumerosTelefono;
+    private javax.swing.JPanel panelBotones;
+    private javax.swing.JPanel pnlBusquedaPaciente;
+    private javax.swing.JPanel pnlDatosLocalidad;
+    private javax.swing.JPanel pnlDatosPersonales;
+    private javax.swing.JPanel pnlDatosTelefonicos;
+    private javax.swing.JPanel pnlNuevoPaciente1;
+    private javax.swing.JRadioButton rbtnApellidoBusqueda;
+    private javax.swing.JRadioButton rbtnDniBusqueda;
+    private javax.swing.JRadioButton rbtnNombreBusqueda;
+    private javax.swing.JTable tblBusqueda;
+    private javax.swing.JTextField txtAlturaCalle;
+    private javax.swing.JTextField txtApellido;
+    private javax.swing.JTextField txtApellidoBusqueda;
+    private javax.swing.JTextField txtCalle;
+    private javax.swing.JTextField txtCaracCelular;
+    private javax.swing.JTextField txtCaractTelefono;
+    private javax.swing.JTextField txtDni;
+    private javax.swing.JTextField txtDniBusqueda;
+    private javax.swing.JTextField txtNombre;
+    private javax.swing.JTextField txtNombreBusqueda;
+    private javax.swing.JTextField txtNumCelular;
+    private javax.swing.JTextField txtNumDepto;
+    private javax.swing.JTextField txtNumTelefono;
+    private javax.swing.JTextField txtPisoDepto;
+    // End of variables declaration//GEN-END:variables
+}
+

@@ -1,0 +1,82 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package Model.Ubicacion;
+import javax.persistence.*;
+/**
+ *
+ * @author Emiliano
+ */
+@Entity
+@Table (name="localidad")
+public class Localidad {
+    @Id
+    @GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY)
+    private long id;
+    private String nombreCiudad;
+    private int codigoPostal;
+    private int estado;
+
+      
+    @ManyToOne(targetEntity = Provincia.class, cascade= CascadeType.ALL,fetch= FetchType.LAZY)
+    private Provincia provincia;
+    
+    public static int NORMAL = 0;
+    public static int ELIMINADO = 1;
+
+    public Localidad(long id, String nombreCiudad, int codigoPostal, int estado, Provincia provincia) {
+        this.id = id;
+        this.nombreCiudad = nombreCiudad;
+        this.codigoPostal = codigoPostal;
+        this.estado = estado;
+        this.provincia = provincia;
+    }
+
+    public Localidad() {
+    }
+
+    public int getCodigoPostal() {
+        return codigoPostal;
+    }
+
+    public void setCodigoPostal(int codigoPostal) {
+        this.codigoPostal = codigoPostal;
+    }
+
+    public int getEstado() {
+        return estado;
+    }
+
+    public void setEstado(int estado) {
+        this.estado = estado;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getNombreCiudad() {
+        return nombreCiudad;
+    }
+
+    public void setNombreCiudad(String nombreCiudad) {
+        this.nombreCiudad = nombreCiudad;
+    }
+
+    public Provincia getProvincia() {
+        return provincia;
+    }
+
+    public void setProvincia(Provincia provincia) {
+        this.provincia = provincia;
+    }
+    
+    public void asEliminado() {
+        this.setEstado(Localidad.ELIMINADO);
+    }
+}

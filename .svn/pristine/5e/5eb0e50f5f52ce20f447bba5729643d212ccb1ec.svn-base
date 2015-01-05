@@ -1,0 +1,40 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package Vistas.Paciente;
+
+/**
+ *
+ * @author Federico
+ */
+public class GestorVistaHistoriaClinica {
+
+    private FrmHistoriaClinica historia;
+    private FrmPaciente frame;
+
+    public void crearFrmHistoriaClinica() {
+        this.setHistoria(new FrmHistoriaClinica(this));
+    }
+
+    public void mostrarFrmHistoriaClinica() {
+        this.historia.setVisible(true);
+    }
+
+    public FrmHistoriaClinica getHistoria() {
+        return historia;
+    }
+
+    public void setHistoria(FrmHistoriaClinica historia) {
+        this.historia = historia;
+    }
+
+    public void abrirFrmHistoriaClinica() {
+        this.crearFrmHistoriaClinica();
+        this.mostrarFrmHistoriaClinica();
+
+    }
+
+    public void cargarDatosPaciente() {
+    }
+}

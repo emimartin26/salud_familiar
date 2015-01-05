@@ -1,0 +1,100 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package Model.Ubicacion;
+
+import java.util.HashSet;
+import java.util.Set;
+import javax.persistence.*;
+
+/**
+ *
+ * @author Emiliano
+ */
+@Entity
+@Table(name = "provincia")
+public class Provincia {
+
+    @Id
+    @GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY)
+    private long id;
+    private String nombre;
+    private int estado;
+        public final static int NORMAL = 0;
+        public final static int ELIMINADO = 1;
+    @OneToMany(targetEntity = Localidad.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<Localidad> localidades;
+    @ManyToOne(targetEntity = Pais.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Pais pais;
+
+    public Provincia() {
+        this.setLocalidades(new HashSet());
+    }
+
+    public Provincia(String nombre, Set<Localidad> ciudades) {
+        this.nombre = nombre;
+        this.localidades = ciudades;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public Set<Localidad> getCiudades() {
+        return localidades;
+    }
+
+    public void setCiudades(Set<Localidad> localidades) {
+        this.localidades = localidades;
+    }
+
+    public Set<Localidad> getLocalidades() {
+        return localidades;
+    }
+
+    public Pais getPais() {
+        return pais;
+    }
+
+    public void setPais(Pais pais) {
+        this.pais = pais;
+    }
+
+    public void addItem(Localidad loc) {
+        this.getLocalidades().add(loc);
+    }
+
+    private void setLocalidades(Set<Localidad> localidades) {
+        this.localidades = localidades;
+    }
+
+    public void setEstado(int estado) {
+        this.estado = estado;
+    }
+
+    public int getEstado() {
+        return estado;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    @Override
+    public String toString() {
+        return this.getNombre();
+    }
+
+    public void asEliminado() {
+        this.setEstado(Provincia.ELIMINADO);
+    }
+}

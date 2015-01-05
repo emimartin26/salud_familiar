@@ -1,0 +1,69 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package Model.Persona;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+/**
+ *
+ * @author Federico
+ */
+@Entity
+@Table(name = "celular")
+public class Celular {
+
+    @Id
+    @GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY)
+    private long id;
+    
+    private String numero;
+    private String caracteristica;
+    private int estado;
+    
+    public final static int NORMAL = 0;
+    public final static int ELIMINADO = 1;
+<<<<<<< .mine
+
+    public String getCaracteristica() {
+=======
+    
+    public String getCaracteristica() {
+>>>>>>> .r44
+        return caracteristica;
+    }
+
+    public void setCaracteristica(String caracteristica) {
+        this.caracteristica = caracteristica;
+    }
+
+    public String getNumero() {
+        return numero;
+    }
+
+    public void setNumero(String numero) {
+        this.numero = numero;
+    }
+
+    public int getEstado() {
+        return estado;
+    }
+
+    public void setEstado(int estado) {
+        this.estado = estado;
+    }
+
+    public void asEliminado() {
+        this.setEstado(Celular.ELIMINADO);
+    }
+<<<<<<< .mine
+=======
+    public String toString() {
+        return this.caracteristica+"-"+this.numero;
+    }
+>>>>>>> .r44
+}

@@ -1,0 +1,46 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package Model.Paciente;
+
+import Model.Persona.Persona;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import javax.persistence.Entity;
+
+/**
+ *
+ * @author Emiliano
+ */
+@Entity
+//@Table(name = "paciente")
+public class Paciente extends Persona {
+
+    // @Id
+    private int codPaciente;
+    private int estado;
+    public final static int NORMAL = 0;
+    public final static int ELIMINADO = 1;
+
+    public int getCodPaciente() {
+        return codPaciente;
+    }
+
+    public void setCodPaciente(int codPaciente) {
+        this.codPaciente = codPaciente;
+    }
+
+    public String apellidoYNombre() {
+        return getApellido() + ", " + getNombre();
+    }
+
+    public String domicilioConcatenado() {
+        return "Direccion: " + getDomicilio().getDireccion() + " " + getDomicilio().getNumero() + ", Piso: " + getDomicilio().getPiso() + ", N°: " + getDomicilio().getNumDepto();
+    }
+
+    public String fechaFormateada() {
+        SimpleDateFormat formateador = new SimpleDateFormat("dd/MM/yyyy");
+        return formateador.format(getFechaNac());
+    }
+}

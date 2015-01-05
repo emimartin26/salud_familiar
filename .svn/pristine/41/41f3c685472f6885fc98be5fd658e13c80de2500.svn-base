@@ -1,0 +1,203 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package Vistas.Paciente;
+
+import Model.Paciente.GestorTipoEnfermedad;
+import Model.Paciente.TipoEnfermedad;
+import Utilidades.GestorLista;
+import Utilidades.Util;
+import Vistas.GestorVista;
+import Vistas.InterfazFrm;
+import java.util.List;
+import javax.swing.JDesktopPane;
+
+/**
+ *
+ * @author Usuario
+ */
+public class GestorVistaTipoEnfermedad extends GestorVista implements InterfazFrm {
+
+    private GestorTipoEnfermedad gestor;
+
+    public GestorVistaTipoEnfermedad(JDesktopPane escritorio) {
+        this.setEscritorio(escritorio);
+        this.setFrame(new FrmTipoEnfermedad(this));
+        this.setGestor(new GestorTipoEnfermedad());
+    }
+
+    public GestorTipoEnfermedad getGestor() {
+        return gestor;
+    }
+
+    public void setGestor(GestorTipoEnfermedad gestor) {
+        this.gestor = gestor;
+    }
+
+    private TipoEnfermedad getModel() {
+        return this.gestor.getModel();
+    }
+
+    public void crearModelo() {
+        this.getGestor().crearModelo();
+    }
+
+    public FrmTipoEnfermedad getFormularioEspecifico() {
+        return (FrmTipoEnfermedad) this.getFrame();
+    }
+
+    public String getNombreABuscar() {
+        return this.getFormularioEspecifico().getTxtNombreTipoEnfermedad().getText();
+    }
+
+    @Override
+    public void abrir() {
+        this.getEscritorio().add(this.getFrame());
+        this.getFrame().setVisible(true);
+    }
+
+    public void guardar() {
+        if (this.comprabarCamposMinimos()) {
+            if (this.isNuevo()) {
+                this.crearModelo();
+                this.obtenerDatos();                        
+                this.getGestor().procesar(this.getModo());
+
+                this.getFormularioEspecifico().configInicial();
+            } else {
+                this.obtenerDatos();
+                this.setModificar();
+                this.getGestor().procesar(this.getModo());
+                this.getFormularioEspecifico().configInicial();
+                this.clearList();
+            }
+        }
+    }
+
+    public void accionModificar() {
+        if (this.getFormularioEspecifico().getLista().getSelectedValue() == null) {
+            new Util().getMensajeError("No ha seleccionado nada");
+        } else {
+            this.actualizarVista();
+            this.actualizarModelo();
+        }
+
+    }
+
+    public void actualizarVista() {
+        TipoEnfermedad tipoEnf = (TipoEnfermedad) this.getFormularioEspecifico().getLista().getSelectedValue();
+        this.getFormularioEspecifico().getTxtNombreNuevoTipoEnfermedad().setText(tipoEnf.getNombre());
+        this.getFormularioEspecifico().getTxtDescripcion().setText(String.valueOf(tipoEnf.getDescripcion()));
+        this.getFormularioEspecifico().getBtnEliminar().setEnabled(false);
+        this.getFormularioEspecifico().getBtnGuardar().setEnabled(true);
+        this.getFormularioEspecifico().getTxtNombreNuevoTipoEnfermedad().setEnabled(true);
+        this.getFormularioEspecifico().getTxtDescripcion().setEnabled(true);
+        this.getFormularioEspecifico().getBtnNuevo().setEnabled(true);
+        this.getFormularioEspecifico().getBtnBuscar().setEnabled(true);
+        this.getFormularioEspecifico().getBtnImprimir().setEnabled(true);
+    }
+
+    public void actualizarModelo() {
+        this.getGestor().setModel(this.tomarSeleccionLista());
+    }
+
+    public void imprimir() {
+        this.getGestor().imprimir();
+    }
+
+    public void eliminar() {
+        if (this.getFormularioEspecifico().getLista().getSelectedValue() == null) {
+            new Util().getMensajeError("No ha seleccionado nada");
+        } else {
+            String nombre = this.getFormularioEspecifico().getLista().getSelectedValue().toString();
+            switch (new Util().confirmacion("¿Desea eliminar el Tipo de Enfermedad " + nombre + "?")) {
+                case 0://aceptar
+                    this.getGestor().setModel(this.getSeleccionLista());
+                    this.getGestor().eliminar();
+                    this.getFormularioEspecifico().configInicial();
+                   // new Util().getMensajeInformation("Tipo de Enfermedad eliminado con exito");
+                    this.clearList();
+                    break;
+                case 2://cancelar
+                    break;
+            }
+        }
+    }
+
+    public void listar() {
+        List TipoEnfermedad = this.getGestor().listarTipoEnfermedad();
+        this.llenarList(TipoEnfermedad);
+        this.getFormularioEspecifico().setConfigBtnFiltrar(true);
+    }
+
+    public void filtrar() {
+        if (this.campoBusquedaVacia()) {
+            List paises = this.getGestor().listarFiltrarNombre(this.getNombreABuscar());
+            this.llenarList(paises);
+            this.getFormularioEspecifico().setConfigBtnFiltrar(true);
+        } else {
+            this.clearList();
+            this.getFormularioEspecifico().setConfigBtnFiltrar(false);
+        }
+
+    }
+
+    private TipoEnfermedad tomarSeleccionLista() {
+        return (TipoEnfermedad) this.getFormularioEspecifico().getLista().getSelectedValue();
+    }
+
+    public String tomarNombre() {
+        return this.getFormularioEspecifico().getTxtNombreNuevoTipoEnfermedad().getText();
+    }
+
+    public String tomarDescripcion() {
+        return this.getFormularioEspecifico().getTxtDescripcion().getText();
+    }
+
+    public List listaTipoEnfermedadNombre() {
+        return this.getGestor().listarFiltrarNombre(this.tomarNombre().trim().toLowerCase());
+    }
+
+    public void llenarList(List lista) {
+        GestorLista gestorLista = new GestorLista();
+        gestorLista.llenarList(lista, this.getFormularioEspecifico().getLista());
+
+    }
+    
+    public void obtenerDatos(){
+        this.getModel().setNombre(this.getFormularioEspecifico().getTxtNombreNuevoTipoEnfermedad().getText());
+        this.getModel().setDescripcion(this.getFormularioEspecifico().getTxtDescripcion().getText());
+    }
+
+    public boolean comprabarCamposMinimos() {
+        if (Util.estaVacioTxt(this.getFormularioEspecifico().getTxtNombreNuevoTipoEnfermedad())) {
+            new Util().getMensajeError("Campo nombre esta vacio");
+            return false;
+        }
+        return true;
+
+    }
+
+    public void clearList() {
+        GestorLista gestorLista = new GestorLista();
+        gestorLista.clearList(this.getFormularioEspecifico().getLista());
+
+    }
+
+    public boolean campoBusquedaVacia() {
+        if (Util.estaVacioTxt(this.getFormularioEspecifico().getTxtNombreTipoEnfermedad())) {
+            return false;
+        }
+        return true;
+    }
+
+    private TipoEnfermedad getSeleccionLista() {
+        return (TipoEnfermedad) this.getFormularioEspecifico().getLista().getSelectedValue();
+    }
+
+    @Override
+    public void cerrar() {
+        this.getFormularioEspecifico().setVisible(false);
+    }
+}

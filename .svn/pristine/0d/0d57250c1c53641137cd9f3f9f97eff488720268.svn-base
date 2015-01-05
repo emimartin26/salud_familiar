@@ -1,0 +1,79 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package main;
+
+import Hibernate.GestorHibernate;
+import Hibernate.HibernateUtil;
+import Model.GestorConsultas;
+import Model.Paciente.GestorEnfermedad;
+import Model.Paciente.GestorSintoma;
+import Model.Paciente.GestorTipoEnfermedad;
+import Model.Ubicacion.Pais;
+import Model.Ubicacion.Provincia;
+import Vistas.Principal.GestorVistaPrincipal;
+import java.util.Iterator;
+
+/**
+ *
+ * @author Emiliano
+ */
+public class Main {
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        HibernateUtil.inicializar();
+        GestorVistaPrincipal gestor = new GestorVistaPrincipal();
+        gestor.abrir();
+//        GestorTipoEnfermedad g = new GestorTipoEnfermedad();
+//        g.getModel().setNombre("Cromosomica");
+//        g.guardar();
+//        GestorTipoEnfermedad g1 = new GestorTipoEnfermedad();
+//        g1.getModel().setNombre("Monogenicas");
+//        g1.guardar();
+//        
+//        
+//        GestorSintoma s = new GestorSintoma();
+//        s.getModel().setNombre("dolor de cabeza");
+//        s.guardar();
+//        GestorSintoma s1 = new GestorSintoma();
+//        s1.getModel().setNombre("vomito");
+//        s1.guardar();
+//        
+//        GestorEnfermedad e = new GestorEnfermedad();
+//        e.getModel().setNombre("Cancer");
+//        e.getModel().setTipoEnfermedad(g.getModel());
+//        e.getModel().add(s.getModel());
+//        e.getModel().add(s1.getModel());
+//        e.guardar();
+//        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+//        GestorConsultas gestor = new GestorConsultas(Pais.class);
+//        gestor.addFiltro("nombre", "argentina");
+//        Iterator iter = gestor.resultConsulta().iterator();
+//   
+//        while (iter.hasNext()) {
+//            Pais obj = (Pais) iter.next();
+//            Iterator iter2 = obj.getProvincias().iterator();
+//            while (iter2.hasNext()) {
+//                Provincia prov = (Provincia) iter2.next();
+//                     System.out.println(prov);
+//            }
+//            //manipular el objeto
+//            //si es necesario lo borramos con:
+//            //iter.remove();
+//        }
+    }
+}

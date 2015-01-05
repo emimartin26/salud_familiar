@@ -1,0 +1,28 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package Model.Paciente;
+
+import Model.Persona.Persona;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+/**
+ *
+ * @author Emiliano
+ */
+@Entity
+//@Table(name = "paciente")
+public abstract class Paciente extends Persona{
+   // @Id
+    private int codPaciente;
+
+    public int getCodPaciente() {
+        return codPaciente;
+    }
+
+    public void setCodPaciente(int codPaciente) {
+        this.codPaciente = codPaciente;
+    }
+}

@@ -1,0 +1,119 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package Model.Ubicacion;
+
+import Hibernate.GestorDeReportes;
+import Hibernate.GestorHibernate;
+import Model.GestorConsultas;
+import Utilidades.Util;
+import java.util.List;
+import javax.swing.JOptionPane;
+
+/**
+ *
+ * @author Emiliano
+ */
+public class GestorProvincia extends GestorHibernate implements InterfazABM {
+
+    private Provincia model;
+
+    public GestorProvincia() {
+        this.setModel(new Provincia());
+    }
+
+    public Provincia getModel() {
+        return model;
+    }
+
+    public void setModel(Provincia model) {
+        this.model = model;
+    }
+
+    public void crearModelo() {
+        this.setModel(new Provincia());
+    }
+
+    @Override
+    public void guardar() {
+
+        this.guardarObjeto(this.getModel());
+    }
+
+    @Override
+    public void actualizar() {
+        this.actualizarObjeto(this.getModel());
+    }
+
+    @Override
+    public void eliminar() {
+        this.getModel().asEliminado();
+        this.actualizarObjeto(this.getModel());
+    }
+
+    public void guardar(int modo) {
+        switch (modo) {
+            case 0:
+                this.guardar();
+                Util.getMensajeInformation("Provincia guardada con éxito");
+                break;
+            case 1:
+                this.actualizar();
+                Util.getMensajeInformation("Provincia actualizada con éxito");
+                break;
+            default:
+                break;
+        }
+    }
+
+    public List listarProvincias() {
+        GestorConsultas gestor = new GestorConsultas(Provincia.class);
+        gestor.addOrdenAscendente("nombre");
+        return gestor.resultConsulta();
+    }
+
+    public List filtrarConb(Pais pais, String nombreFiltro) {
+        GestorConsultas gestor = new GestorConsultas(Provincia.class);
+        gestor.addFiltroPorObjeto("pais", pais);
+        gestor.addFiltro("nombre", nombreFiltro);
+        gestor.addOrdenAscendente("nombre");
+        return gestor.resultConsulta();
+    }
+
+    public List filtrarPais(Pais pais) {
+        GestorConsultas gestor = new GestorConsultas(Provincia.class);
+        gestor.addFiltroPorObjeto("pais", pais);
+        gestor.addOrdenAscendente("nombre");
+        return gestor.resultConsulta();
+    }
+
+    public List filtrarNombre(String nombre) {
+        GestorConsultas gestor = new GestorConsultas(Provincia.class);
+        gestor.addFiltro("nombre", nombre);
+        gestor.addOrdenAscendente("nombre");
+        return gestor.resultConsulta();
+
+    }
+
+    public void isRepetido() {
+        //Implementar
+    }
+
+    @Override
+    public void imprimir() {
+        try {
+            String cadena = System.getProperty("user.dir");
+            GestorDeReportes gestorRep = new GestorDeReportes(cadena + "\\src\\Reportes\\provincias.jasper");
+            gestorRep.agregarParametro("TITULO", "Salud Familiar");
+            gestorRep.agregarParametro("subtitulo", "Provincias");
+            gestorRep.agregarParametro("direccion", "Dirección: Salta 1533 - Villa María, Córdoba");
+            gestorRep.agregarParametro("membrete", "Teléfono: 0353-495638    Fax: 0353-485632    Correo: saludfamiliar@saludfamiliar.com");
+            gestorRep.agregarParametro("directorio", cadena + "\\src\\Reportes\\");
+            gestorRep.setColeccionDeDatos(this.listarProvincias());
+            gestorRep.imprimir();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
+}

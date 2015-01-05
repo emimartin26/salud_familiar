@@ -1,0 +1,36 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package Vistas.Paciente;
+
+import Vistas.GestorVista;
+import java.awt.Component;
+import javax.swing.JDesktopPane;
+
+/**
+ *
+ * @author Federico
+ */
+public class GestorVistaPaciente extends GestorVista {
+
+    //private FrmPaciente frame;
+
+    public GestorVistaPaciente(JDesktopPane escritorio) {
+        this.setEscritorio(escritorio);
+        this.setFrame(new FrmPaciente(this));
+    }
+
+    public void abrir() {
+        Component add = this.getEscritorio().add(this.getFrame());
+        this.getFrame().setVisible(true);
+    }
+
+    public void abrirFrmHistoria() {
+        GestorVistaHistoriaClinica gest = new GestorVistaHistoriaClinica(this.getEscritorio());
+        gest.abrir();
+     
+    }
+
+  
+}

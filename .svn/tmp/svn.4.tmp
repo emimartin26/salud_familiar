@@ -1,0 +1,76 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package Model.Paciente;
+
+import Hibernate.GestorHibernate;
+import Model.GestorConsultas;
+import Model.Ubicacion.InterfazABM;
+import Utilidades.Util;
+import java.util.List;
+
+/**
+ *
+ * @author Emiliano
+ */
+public class GestorTipoEnfermedad extends GestorHibernate implements InterfazABM {
+
+    private TipoEnfermedad model;
+
+    public GestorTipoEnfermedad() {
+        this.setModel(new TipoEnfermedad());
+    }
+
+    @Override
+    public void guardar() {
+
+        this.guardarObjeto(this.getModel());
+    }
+
+    @Override
+    public void actualizar() {
+        this.actualizarObjeto(this.getModel());
+    }
+
+    public void guardar(int modo) {
+        switch (modo) {
+            case 0:
+                this.guardar();
+                new Util().getMensajeInformation("Guardado con exito");
+                break;
+            case 1:
+                this.actualizar();
+               new Util().getMensajeInformation("Actualizado con exito");
+                break;
+            default:
+                break;
+        }
+    }
+
+    @Override
+    public void eliminar() {
+        this.getModel().asEliminado();
+        this.actualizarObjeto(this.getModel());
+    }
+
+    @Override
+    public void imprimir() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public TipoEnfermedad getModel() {
+        return model;
+    }
+
+    public void setModel(TipoEnfermedad model) {
+        this.model = model;
+    }
+    
+    public List listarTipoEnfermedades() {
+        GestorConsultas gestor = new GestorConsultas(TipoEnfermedad.class);
+        gestor.addOrdenAscendente("nombre");
+        return gestor.resultConsulta();
+    }
+    
+}

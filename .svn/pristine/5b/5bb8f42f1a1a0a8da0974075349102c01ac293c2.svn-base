@@ -1,0 +1,125 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package Model.Paciente;
+
+import Hibernate.GestorDeReportes;
+import Hibernate.GestorHibernate;
+import Model.GestorConsultas;
+import Model.Ubicacion.InterfazABM;
+import Utilidades.Util;
+import java.util.List;
+import javax.swing.JOptionPane;
+
+/**
+ *
+ * @author Lopez
+ */
+public class GestorEnfermedad extends GestorHibernate implements InterfazABM {
+
+    private Enfermedad model;
+
+    public GestorEnfermedad() {
+        this.setModel(new Enfermedad());
+    }
+
+    public Enfermedad getModel() {
+        return model;
+    }
+
+    public void setModel(Enfermedad model) {
+        this.model = model;
+    }
+       
+    public void crearModelo() {
+        this.setModel(new Enfermedad());
+    }
+
+    @Override
+    public void guardar() {
+
+        this.guardarObjeto(this.getModel());
+    }
+
+    @Override
+    public void actualizar() {
+        this.actualizarObjeto(this.getModel());
+    }
+
+    public void guardar(int modo) {
+        switch (modo) {
+            case 0:
+                this.guardar();
+                Util.getMensajeInformation("Guardado con exito");
+                break;
+            case 1:
+                this.actualizar();
+                Util.getMensajeInformation("Actualizado con exito");
+                break;
+            default:
+                break;
+        }
+    }
+
+    @Override
+    public void eliminar() {
+        this.getModel().asEliminado();
+        this.actualizarObjeto(this.getModel());
+    }
+
+    @Override
+  public void imprimir() {
+        try {
+            String cadena = System.getProperty("user.dir");
+            GestorDeReportes gestorRep = new GestorDeReportes(cadena + "\\src\\Reportes\\provincias.jasper");
+            gestorRep.agregarParametro("TITULO", "Salud Familiar");
+            gestorRep.agregarParametro("subtitulo", "Enfermedades");
+            gestorRep.agregarParametro("direccion", "Dirección: Salta 1533 - Villa María, Córdoba");
+            gestorRep.agregarParametro("membrete", "Teléfono: 0353-495638    Fax: 0353-485632    Correo: saludfamiliar@saludfamiliar.com");
+            gestorRep.agregarParametro("directorio", cadena + "\\src\\Reportes\\");
+            gestorRep.setColeccionDeDatos(this.listarEnfermedades());
+            gestorRep.imprimir();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
+
+    public List listarEnfermedades() {
+        GestorConsultas gestor = new GestorConsultas(Enfermedad.class);
+        gestor.addOrdenAscendente("nombre");
+        return gestor.resultConsulta();
+    }
+    
+    public boolean isRepetido(String nombre) {
+        GestorConsultas gestor = new GestorConsultas(Enfermedad.class);
+        gestor.addRestriccion("nombre", nombre);
+        return !gestor.resultConsulta().isEmpty();
+    }
+  
+
+   
+    public List filtrarTipoEnfermedad(TipoEnfermedad tipoEnfermedad) {
+        GestorConsultas gestor = new GestorConsultas(Enfermedad.class);
+        gestor.addFiltroPorObjeto("tipoEnfermedad", tipoEnfermedad);
+        gestor.addOrdenAscendente("nombre");
+        return gestor.resultConsulta();
+    }
+        
+    public List filtrarConb(TipoEnfermedad tipoEnfermedad, String nombreFiltro) {
+        GestorConsultas gestor = new GestorConsultas(Enfermedad.class);
+        gestor.addFiltroPorObjeto("tipoEnfermedad", tipoEnfermedad);
+        gestor.addFiltro("nombre", nombreFiltro);
+        gestor.addOrdenAscendente("nombre");
+        return gestor.resultConsulta();
+    }
+    
+    public List filtrarNombre(String nombre) {
+        GestorConsultas gestor = new GestorConsultas(Enfermedad.class);
+        gestor.addFiltro("nombre", nombre);
+        gestor.addOrdenAscendente("nombre");
+        return gestor.resultConsulta();
+
+    }
+    
+}

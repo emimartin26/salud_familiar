@@ -1,0 +1,75 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package Model.Profesional;
+
+import Hibernate.GestorHibernate;
+import Model.GestorConsultas;
+import Model.Ubicacion.InterfazABM;
+import Model.Ubicacion.Pais;
+import Utilidades.Util;
+
+/**
+ *
+ * @author Federico
+ */
+public class GestorProfesionales extends GestorHibernate implements InterfazABM{
+    private Profesional model;
+
+    public Profesional getModel() {
+        return model;
+    }
+
+    public void setModel(Profesional model) {
+        this.model = model;
+    }
+        public void crearModelo() {
+        this.setModel(new Profesional());
+    }    @Override
+    public void guardar() {
+
+        this.guardarObjeto(this.getModel());
+    }
+    public void guardar(int modo) {
+        switch (modo) {
+            case 0:
+                if (this.isRepetido(this.getModel().getNombre())) {
+                    new Util().getMensajeError("El Profesional ingresado ya existe en la base de datos");
+                } else {
+                    this.guardar();
+                   new Util().getMensajeInformation("Profesional Guardado con exito");
+                }
+                break;
+            case 1:
+                this.actualizar();
+                new Util().getMensajeInformation("Profesional Actualizado con exito");
+                break;
+            default:
+                break;
+        }
+    }
+        public boolean isRepetido(String nombre) {
+        GestorConsultas gestor = new GestorConsultas(Profesional.class);
+        gestor.addRestriccion("matricula", nombre);
+        return !gestor.resultConsulta().isEmpty();
+    }
+
+    @Override
+    public void actualizar() {
+        this.actualizarObjeto(this.getModel());
+    }
+
+    @Override
+    public void eliminar() {
+        this.getModel().asEliminado();
+        this.actualizarObjeto(this.getModel());
+    }
+
+    @Override
+    public void imprimir() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    
+}

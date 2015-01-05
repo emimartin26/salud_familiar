@@ -1,0 +1,98 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package Model.Profesional;
+
+import Hibernate.GestorHibernate;
+import Model.GestorConsultas;
+import Model.Persona.Documento;
+import Model.Ubicacion.InterfazABM;
+import Utilidades.Util;
+import Vistas.Profesional.GestorVistaProfesional;
+import java.util.List;
+
+/**
+ *
+ * @author Federico
+ */
+public class GestorProfesionales extends GestorHibernate implements InterfazABM {
+
+    private Profesional model;
+
+    public Profesional getModel() {
+        return model;
+    }
+
+    public void setModel(Profesional model) {
+        this.model = model;
+    }
+
+    public void crearModelo() {
+        this.setModel(new Profesional());
+    }
+
+    @Override
+    public void guardar() {
+        try {
+            this.guardarObjeto(this.getModel());
+            new Util().getMensajeInformation("Profesional guardado con éxito");
+        } catch (Exception e) {
+            new Util().getMensajeError("Error: " + e);
+        }
+
+
+    }
+
+
+
+
+
+    @Override
+    public void actualizar() {
+        this.actualizarObjeto(this.getModel());    
+    }
+
+    @Override
+    public void eliminar() {
+        this.getModel().asEliminado();
+        this.actualizarObjeto(this.getModel());
+    }
+    public void procesar(int modo) {
+        switch (modo) {
+            case 0:
+                this.guardar();
+                break;
+            case 1:
+                this.actualizar();
+                new  Util().getMensajeInformation("Profesional Actualizado con éxito");
+                break;
+            default:
+                break;
+        }
+    }
+    @Override
+    public void imprimir() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+    public boolean isRepetido(String mat) {
+        GestorConsultas gestor = new GestorConsultas(Profesional.class);
+        gestor.addRestriccion("matricula", mat);
+        return !gestor.resultConsulta().isEmpty(); //|| dos;
+
+    }
+
+    public boolean isRepetido(Documento doc) {
+        GestorConsultas ges = new GestorConsultas(Documento.class);
+        ges.addRestriccion("num", doc.getNum());
+        boolean uno = !ges.resultConsulta().isEmpty();
+        ges.resultConsulta().clear();
+        return uno; //|| dos;
+
+    }    
+    public List listarProfesionales() {
+        GestorConsultas gestor = new GestorConsultas(Profesional.class);
+        gestor.addOrdenAscendente("apellido");
+        return gestor.resultConsulta();  
+    }
+}

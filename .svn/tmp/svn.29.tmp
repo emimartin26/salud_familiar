@@ -1,0 +1,172 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package Vistas.Profesional;
+
+import Model.Profesional.GestorProfesion;
+import Model.Profesional.Profesion;
+import Utilidades.GestorLista;
+import Utilidades.Util;
+import Vistas.GestorVista;
+import Vistas.InterfazFrm;
+import java.util.List;
+import javax.swing.JDesktopPane;
+
+/**
+ *
+ * @author Federico
+ */
+public class GestorVistaProfesiones extends GestorVista implements InterfazFrm{
+
+    private GestorProfesion gestor;
+
+    public GestorVistaProfesiones(JDesktopPane escritorio) {
+        this.setEscritorio(escritorio);
+        this.setFrame(new FrmProfesiones(this));
+        this.setGestor(new GestorProfesion());
+    }
+
+    private Profesion getModel() {
+        return this.gestor.getModel();
+    }
+
+    public GestorProfesion getGestor() {
+        return gestor;
+    }
+
+    public final void setGestor(GestorProfesion gestor) {
+        this.gestor = gestor;
+    }
+
+    public String getNombreABuscar() {
+        return this.getFormularioEspecifico().getTxtNombreProfesionBuscar().getText();
+    }
+
+    private Profesion getSeleccionLista() {
+        return (Profesion) this.getFormularioEspecifico().getLista().getSelectedValue();
+    }
+
+    @Override
+    public void abrir() {
+        this.getEscritorio().add(this.getFrame());
+        this.getFrame().setVisible(true);
+    }
+
+    public FrmProfesiones getFormularioEspecifico() {
+        return (FrmProfesiones) this.getFrame();
+    }
+
+    public void guardar() {
+        if (this.comprabarCamposMinimos()) {
+            if (this.isNuevo()) {
+                this.getGestor().crearModelo();
+                this.getModel().setNombre(getFormularioEspecifico().getTxtNombre().getText().trim().toLowerCase());
+                if (!this.getGestor().isRepetido(this.getModel().getNombre())) {
+                    this.getGestor().guardar(this.getModo());
+                    this.getFormularioEspecifico().configInicial();
+                } else {
+                    new  Util().getMensajeError("La profesión ingresada ya existe en la base de datos");
+                    this.getFormularioEspecifico().getTxtNombre().requestFocus();
+                }
+            } else {
+                this.getGestor().getModel().setNombre(this.getFormularioEspecifico().getTxtNombre().getText().trim());
+                this.getGestor().guardar(this.getModo());
+                this.getFormularioEspecifico().configInicial();
+                this.clearList();
+            }
+
+        }
+
+    }
+
+    public void modificarProfesiones() {
+        if (this.getFormularioEspecifico().getLista().getSelectedValue() == null) {
+            new  Util().getMensajeError("No ha seleccionado nada");
+        } else {
+            this.getFormularioEspecifico().getBtnGuardar().setEnabled(true);
+            String nombre = this.getFormularioEspecifico().getLista().getSelectedValue().toString();
+            this.getFormularioEspecifico().getTxtNombre().setEnabled(true);
+            this.getFormularioEspecifico().getTxtNombre().setText(nombre);
+            this.getGestor().setModel(this.getSeleccionLista());
+        }
+
+    }
+
+    public void eliminarProfesiones() {
+        if (this.getFormularioEspecifico().getLista().getSelectedValue() == null) {
+            new  Util().getMensajeError("No ha seleccionado nada");
+        } else {
+            String nombre = this.getFormularioEspecifico().getLista().getSelectedValue().toString();
+            switch (new  Util().confirmacion("¿Desea eliminar " + nombre + "?")) {
+                case 0://aceptar
+
+                    this.getGestor().setModel(this.getSeleccionLista());
+                    this.getGestor().eliminar();
+                    this.getFormularioEspecifico().configInicial();
+                   new  Util().getMensajeInformation("Eliminado con exito");
+                    this.clearList();
+                    break;
+                case 2://cancelar
+
+                    break;
+            }
+        }
+    }
+
+    public void imprimir() {
+        this.getGestor().imprimir();
+    }
+
+    public void filtrar() {
+        if (this.campoBusquedaVacia()) {
+            List profesiones = this.getGestor().filtrarNombre(this.getNombreABuscar());
+            this.llenarList(profesiones);
+            this.getFormularioEspecifico().setConfigBtnFiltrar(true);
+        } else {
+            this.clearList();
+            this.getFormularioEspecifico().setConfigBtnFiltrar(false);
+        }
+
+    }
+
+    public void listar() {
+        List profesiones = this.getGestor().listarProfesion();
+        this.llenarList(profesiones);
+        this.getFormularioEspecifico().setConfigBtnFiltrar(true);
+    }
+
+    public void llenarList(List lista) {
+        GestorLista gestorLista = new GestorLista();
+        gestorLista.llenarList(lista, this.getFormularioEspecifico().getLista());
+
+    }
+
+    public void clearList() {
+        GestorLista gestorLista = new GestorLista();
+        gestorLista.clearList(this.getFormularioEspecifico().getLista());
+
+    }
+
+    public boolean comprabarCamposMinimos() {
+        if (Util.estaVacioTxt(this.getFormularioEspecifico().getTxtNombre())) {
+            new  Util().getMensajeError("Campo nombre esta vacio");
+            return false;
+        }
+        return true;
+
+    }
+
+    public boolean campoBusquedaVacia() {
+        if (Util.estaVacioTxt(this.getFormularioEspecifico().getTxtNombreProfesionBuscar())) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public void cerrar() {
+        this.getFormularioEspecifico().setVisible(false);
+    }
+}
+

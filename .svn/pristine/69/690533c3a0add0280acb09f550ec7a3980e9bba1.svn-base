@@ -1,0 +1,106 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package Model.Ubicacion;
+
+import Hibernate.GestorDeReportes;
+import Hibernate.GestorHibernate;
+import Model.GestorConsultas;
+import Utilidades.Util;
+import java.util.List;
+import javax.swing.JOptionPane;
+
+/**
+ *
+ * @author Emiliano
+ */
+public class GestorPais extends GestorHibernate implements InterfazABM {
+
+    private Pais model;
+
+    public GestorPais() {
+        this.setModel(new Pais());
+    }
+
+    public Pais getModel() {
+        return model;
+    }
+
+    public void setModel(Pais model) {
+        this.model = model;
+    }
+
+    public void crearModelo() {
+        this.setModel(new Pais());
+    }
+
+    @Override
+    public void guardar() {
+
+        this.guardarObjeto(this.getModel());
+    }
+
+    @Override
+    public void actualizar() {
+        this.actualizarObjeto(this.getModel());
+    }
+
+    @Override
+    public void eliminar() {
+        this.getModel().asEliminado();
+        this.actualizarObjeto(this.getModel());
+    }
+
+    public void guardar(int modo) {
+        switch (modo) {
+            case 0:
+                this.guardar();
+                Util.getMensajeInformation("Pais Guardado con exito");
+                break;
+            case 1:
+                this.actualizar();
+                Util.getMensajeInformation("Pais Actualizado con exito");
+                break;
+            default:
+                break;
+        }
+    }
+
+    public List listarPais() {
+        GestorConsultas gestor = new GestorConsultas(Pais.class);
+        gestor.addOrdenAscendente("nombre");
+        return gestor.resultConsulta();
+    }
+
+    @Override
+    public void imprimir() {
+        try {
+            String cadena = System.getProperty("user.dir");
+            GestorDeReportes gestorRep = new GestorDeReportes(cadena + "\\src\\Reportes\\paises.jasper");
+            gestorRep.agregarParametro("TITULO", "Salud Familiar");
+            gestorRep.agregarParametro("subtitulo", "Paises");
+            gestorRep.agregarParametro("direccion", "Dirección: Salta 1533 - Villa María, Córdoba");
+            gestorRep.agregarParametro("membrete", "Teléfono: 0353-495638    Fax: 0353-485632    Correo: saludfamiliar@saludfamiliar.com");
+            gestorRep.agregarParametro("directorio", cadena + "\\src\\Reportes\\");
+            gestorRep.setColeccionDeDatos(this.listarPais());
+            gestorRep.imprimir();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
+
+    public List filtrarNombre(String nombreFiltro) {
+        GestorConsultas gestor = new GestorConsultas(Pais.class);
+        gestor.addFiltro("nombre", nombreFiltro);
+        gestor.addOrdenAscendente("nombre");
+        return gestor.resultConsulta();
+    }
+
+    public boolean isRepetido(String nombre) {
+        GestorConsultas gestor = new GestorConsultas(Pais.class);
+        gestor.addRestriccion("nombre", nombre);
+        return !gestor.resultConsulta().isEmpty();
+
+    }
+}

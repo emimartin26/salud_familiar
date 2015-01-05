@@ -1,0 +1,25 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package main;
+
+import Hibernate.HibernateUtil;
+import Vistas.Principal.GestorVistaPrincipal;
+
+/**
+ *
+ * @author Emiliano
+ */
+public class Main {
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        HibernateUtil.inicializar();
+        GestorVistaPrincipal gestor = new GestorVistaPrincipal();
+        gestor.abrir();
+    
+
+    }
+}

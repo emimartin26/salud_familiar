@@ -1,0 +1,64 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package Model.Profesional;
+
+import Model.Persona.Persona;
+import java.io.Serializable;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+import javax.persistence.*;
+
+/**
+ *
+ * @author Emiliano
+ */
+@Entity
+//@Table(name = "profesionales")
+public class Profesional extends Persona {
+
+    private int matricula;
+//    private String nombre;
+//    private String apellido;
+//    
+//  @Temporal(javax.persistence.TemporalType.DATE)
+//    private Date fechaNac;
+    @GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY)
+//    @Id
+//    private long id;
+    private int estado;
+    @OneToMany(targetEntity = Profesional.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<Profesion> profesiones;
+    public final static int NORMAL = 0;
+    public final static int ELIMINADO = 1;
+
+    public Profesional() {
+        this.setProfesiones(new HashSet());
+    }
+
+    public void setEstado(int estado) {
+        this.estado = estado;
+    }
+
+    public int getMatricula() {
+        return matricula;
+    }
+
+    public void setMatricula(int matricula) {
+        this.matricula = matricula;
+    }
+
+    public Set<Profesion> getProfesiones() {
+        return profesiones;
+    }
+
+    public void setProfesiones(Set<Profesion> profesiones) {
+        this.profesiones = profesiones;
+    }
+
+    public void asEliminado() {
+        this.setEstado(Profesional.ELIMINADO);
+    }
+}

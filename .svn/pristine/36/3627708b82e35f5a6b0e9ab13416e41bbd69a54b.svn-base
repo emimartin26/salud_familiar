@@ -1,0 +1,44 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package main;
+
+import Hibernate.GestorHibernate;
+import Hibernate.HibernateUtil;
+import Model.Paciente.Enfermedad;
+import Model.Paciente.Sintoma;
+import Model.Paciente.TipoEnfermedad;
+import Model.Persona.Documento;
+import Model.Persona.Domicilio;
+import Model.Persona.Telefono;
+import Model.Persona.TipoDocumento;
+import Model.Profesional.Profesion;
+import Model.Profesional.Profesional;
+import Model.Ubicacion.Localidad;
+import Model.Ubicacion.Pais;
+import Model.Ubicacion.Provincia;
+import Utilidades.Util;
+import Vistas.Principal.GestorVistaPrincipal;
+import java.util.Date;
+
+/**
+ *
+ * @author Emiliano
+ */
+public class Main {
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        HibernateUtil.inicializar();
+        GestorVistaPrincipal gestor = new GestorVistaPrincipal();
+        new Util().generadorObjetos(new GestorHibernate());        
+        gestor.abrir();
+        
+        
+        
+    }
+   
+}

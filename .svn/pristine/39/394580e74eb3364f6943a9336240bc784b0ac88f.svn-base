@@ -1,0 +1,53 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package Vistas.Paciente;
+
+import Model.Paciente.GestorTipoEnfermedades;
+import Vistas.GestorVista;
+import Vistas.InterfazFrm;
+import javax.swing.JDesktopPane;
+
+/**
+ *
+ * @author Usuario
+ */
+public class GestorVistaTipoEnfermedades extends GestorVista implements InterfazFrm {
+
+    public GestorVistaTipoEnfermedades(JDesktopPane escritorio) {
+        this.setEscritorio(escritorio);
+        this.setFrame(new FrmTipoEnfermedades(this));
+    }
+
+    @Override
+    public void abrir() {
+        this.getEscritorio().add(this.getFrame());
+        this.getFrame().setVisible(true);
+    }
+
+    public void guardar() {
+        GestorTipoEnfermedades gestor = new GestorTipoEnfermedades();
+        gestor.getModel().setNombre(this.tomarNombre());
+        gestor.getModel().setDescripcion(this.tomarDescripcion());
+        System.out.println(this.tomarNombre()+" "+this.tomarDescripcion());
+        gestor.guardar();
+    }
+
+    public String tomarNombre() {
+        return this.getFormularioEspecifico().getTxtNombreNuevoTipoEnfermedad().getText();
+    }
+
+    public String tomarDescripcion() {
+        return this.getFormularioEspecifico().getTxtDescripcion().getText();
+    }
+
+    public FrmTipoEnfermedades getFormularioEspecifico() {
+        return (FrmTipoEnfermedades) this.getFrame();
+    }
+
+    @Override
+    public void cerrar() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+}

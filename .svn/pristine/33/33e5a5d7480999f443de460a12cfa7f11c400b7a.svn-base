@@ -1,0 +1,42 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+import Vistas.Paciente.FrmPaciente;
+import Vistas.Paciente.GestorVistaPaciente;
+import org.junit.Before;
+import org.junit.Test;
+import static org.junit.Assert.*;
+
+/**
+ *
+ * @author emiliano
+ */
+public class FrmPacienteTest {
+
+    GestorVistaPaciente gestor = new GestorVistaPaciente(null);
+    FrmPaciente form = new FrmPaciente(gestor);
+
+    public FrmPacienteTest() {
+    }
+
+    @Before
+    public void setUp() {
+        // se simula que el usuario ingreso nu numero mezclado con letras.
+        gestor.getFormularioEspecifico().getTxtDni().setText("3681a2981");
+    }
+    /*
+     * En este test se comprueba que si ingresamos letras 
+     * la prueba deve devolver true ya que el campo numero documento tiene que estar
+     * en null.
+     */
+
+    @Test
+    public void testSoloNumeros() {
+        gestor.crearGestor();
+        gestor.obtenerDatosPaciente();
+        assertEquals(null, gestor.getModel().getDocumento().getNum());
+
+    }
+}
